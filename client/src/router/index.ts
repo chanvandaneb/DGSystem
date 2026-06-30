@@ -29,9 +29,7 @@ const router = createRouter({
           meta: { breadcrumb: ['Home', 'Attendances', 'Breaks'] },
         },
         { path: 'kpi', name: 'kpi', component: () => import('@/pages/Kpi.vue'), meta: { breadcrumb: ['Home', 'Kpis'] } },
-        { path: 'kpi/report', name: 'kpi-report', component: () => import('@/pages/kpi/Report.vue'), meta: { breadcrumb: ['Home', 'Kpis', 'Report'] } },
         { path: 'kpi/rule', name: 'kpi-rule', component: () => import('@/pages/kpi/Rule.vue'), meta: { breadcrumb: ['Home', 'Kpis', 'Rule'] } },
-        { path: 'kpi/category', name: 'kpi-category', component: () => import('@/pages/kpi/Category.vue'), meta: { breadcrumb: ['Home', 'Kpis', 'Category'] } },
         { path: 'clock', name: 'clock', component: () => import('@/pages/Clock.vue'), meta: { breadcrumb: ['Home', 'Clock'] } },
         { path: 'tasks', name: 'tasks', component: () => import('@/pages/Tasks.vue'), meta: { breadcrumb: ['Home', 'Tasks'] } },
         {

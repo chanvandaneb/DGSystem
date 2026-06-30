@@ -66,17 +66,50 @@ db.exec(`
     id TEXT PRIMARY KEY,
     username TEXT UNIQUE NOT NULL,
     passwordHash TEXT NOT NULL,
-    name TEXT NOT NULL
+    name TEXT NOT NULL,
+    role TEXT NOT NULL DEFAULT 'employee'
+  );
+
+  CREATE TABLE IF NOT EXISTS profiles (
+    userId TEXT PRIMARY KEY,
+    avatar TEXT DEFAULT '',
+    eid TEXT DEFAULT '',
+    fullname TEXT DEFAULT '',
+    birthday TEXT DEFAULT '',
+    gender TEXT DEFAULT '',
+    nationality TEXT DEFAULT '',
+    passportExpiry TEXT DEFAULT '',
+    visaExpiry TEXT DEFAULT '',
+    personalEmail TEXT DEFAULT '',
+    personalPhone TEXT DEFAULT '',
+    telegram TEXT DEFAULT '',
+    messenger TEXT DEFAULT '',
+    workingPhone TEXT DEFAULT '',
+    homeAddress TEXT DEFAULT '',
+    abroadAddress TEXT DEFAULT '',
+    status TEXT DEFAULT '',
+    interviewDate TEXT DEFAULT '',
+    contractDate TEXT DEFAULT '',
+    onboardDate TEXT DEFAULT '',
+    regularDate TEXT DEFAULT '',
+    resignedDate TEXT DEFAULT '',
+    notes TEXT DEFAULT ''
   );
 `)
 
+const userColumns = db.prepare('PRAGMA table_info(users)').all() as { name: string }[]
+if (!userColumns.some((c) => c.name === 'role')) {
+  db.exec(`ALTER TABLE users ADD COLUMN role TEXT NOT NULL DEFAULT 'employee'`)
+}
+
 const userCount = db.prepare('SELECT COUNT(*) as count FROM users').get() as { count: number }
 if (userCount.count === 0) {
-  db.prepare('INSERT INTO users (id, username, passwordHash, name) VALUES (?, ?, ?, ?)').run(
+  db.prepare('INSERT INTO users (id, username, passwordHash, name, role) VALUES (?, ?, ?, ?, ?)').run(
     '1',
     'chanvandaneb',
     bcrypt.hashSync('dgsystem123', 10),
     'Chan Vandanet',
+    'employee',
   )
 }
 

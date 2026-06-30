@@ -48,9 +48,7 @@ export const navGroups: NavGroup[] = [
         icon: Target,
         children: [
           { label: 'Kpi', to: '/kpi' },
-          { label: 'KPI report', to: '/kpi/report' },
           { label: 'KPI rule', to: '/kpi/rule' },
-          { label: 'Category', to: '/kpi/category' },
         ],
       },
       {

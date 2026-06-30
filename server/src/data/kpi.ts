@@ -38,10 +38,19 @@ export interface KpiEntry {
 }
 
 export const kpiEntries: KpiEntry[] = [
-  { id: '1', date: '2026-05-01', reporter: 'Pich Sovann', reporterPoint: 9, reportee: 'Chan Vandanet', reporteePoint: 8, title: 'Sprint delivery quality', status: 'Approved' },
-  { id: '2', date: '2026-05-08', reporter: 'Pich Sovann', reporterPoint: 7, reportee: 'Sok Dara', reporteePoint: 8, title: 'Design handoff turnaround', status: 'Pending' },
-  { id: '3', date: '2026-05-15', reporter: 'Pich Sovann', reporterPoint: 6, reportee: 'Nguyen Anh', reporteePoint: 7, title: 'Payroll accuracy', status: 'Approved' },
-  { id: '4', date: '2026-05-22', reporter: 'Pich Sovann', reporterPoint: 5, reportee: 'Chan Vandanet', reporteePoint: 6, title: 'Code review responsiveness', status: 'Rejected' },
+  { id: '1', date: '2026-03-04', reporter: 'Pich Sovann', reporterPoint: 8, reportee: 'Chan Vandanet', reporteePoint: 7, title: 'Sprint planning accuracy', status: 'Approved' },
+  { id: '2', date: '2026-03-12', reporter: 'Pich Sovann', reporterPoint: 6, reportee: 'Sok Dara', reporteePoint: 7, title: 'Client follow-up turnaround', status: 'Approved' },
+  { id: '3', date: '2026-03-20', reporter: 'Lina Chea', reporterPoint: 5, reportee: 'Nguyen Anh', reporteePoint: 6, title: 'Ticket resolution time', status: 'Pending' },
+  { id: '4', date: '2026-04-02', reporter: 'Pich Sovann', reporterPoint: 9, reportee: 'Chan Vandanet', reporteePoint: 8, title: 'Bug triage thoroughness', status: 'Approved' },
+  { id: '5', date: '2026-04-10', reporter: 'Lina Chea', reporterPoint: 4, reportee: 'Sok Dara', reporteePoint: 5, title: 'Lead qualification quality', status: 'Rejected' },
+  { id: '6', date: '2026-04-18', reporter: 'Pich Sovann', reporterPoint: 7, reportee: 'Nguyen Anh', reporteePoint: 8, title: 'Payroll accuracy', status: 'Approved' },
+  { id: '7', date: '2026-05-01', reporter: 'Pich Sovann', reporterPoint: 9, reportee: 'Chan Vandanet', reporteePoint: 8, title: 'Sprint delivery quality', status: 'Approved' },
+  { id: '8', date: '2026-05-08', reporter: 'Pich Sovann', reporterPoint: 7, reportee: 'Sok Dara', reporteePoint: 8, title: 'Design handoff turnaround', status: 'Pending' },
+  { id: '9', date: '2026-05-15', reporter: 'Lina Chea', reporterPoint: 6, reportee: 'Nguyen Anh', reporteePoint: 7, title: 'Support SLA compliance', status: 'Approved' },
+  { id: '10', date: '2026-05-22', reporter: 'Pich Sovann', reporterPoint: 5, reportee: 'Chan Vandanet', reporteePoint: 6, title: 'Code review responsiveness', status: 'Rejected' },
+  { id: '11', date: '2026-06-05', reporter: 'Pich Sovann', reporterPoint: 8, reportee: 'Sok Dara', reporteePoint: 8, title: 'Monthly sales target', status: 'Approved' },
+  { id: '12', date: '2026-06-14', reporter: 'Lina Chea', reporterPoint: 7, reportee: 'Chan Vandanet', reporteePoint: 7, title: 'Documentation quality', status: 'Pending' },
+  { id: '13', date: '2026-06-21', reporter: 'Pich Sovann', reporterPoint: 6, reportee: 'Nguyen Anh', reporteePoint: 6, title: 'Response time SLA', status: 'Approved' },
 ]
 
 export interface KpiRule {

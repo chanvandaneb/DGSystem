@@ -4,12 +4,15 @@ import type { ColumnDef } from '@tanstack/vue-table'
 import { Trash2, Pencil } from 'lucide-vue-next'
 import { api } from '@/lib/api'
 import { useToast } from '@/composables/useToast'
+import { useAuthStore } from '@/stores/auth'
 import PageHeader from '@/components/layout/PageHeader.vue'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import DataTable from '@/components/data-table/DataTable.vue'
 import AddKpiRuleDialog from '@/components/kpi/AddKpiRuleDialog.vue'
+
+const auth = useAuthStore()
 
 interface KpiRule {
   id: string
@@ -70,15 +73,19 @@ const columns: ColumnDef<KpiRule, any>[] = [
   { accessorKey: 'category', header: 'Category', cell: ({ row }) => h(Badge, { variant: 'secondary' }, () => row.original.category) },
   { accessorKey: 'points', header: 'Points' },
   { accessorKey: 'description', header: 'Description' },
-  {
-    id: 'actions',
-    header: '',
-    cell: ({ row }) =>
-      h('div', { class: 'flex items-center gap-1' }, [
-        h(Button, { variant: 'ghost', size: 'icon', class: 'h-7 w-7', onClick: () => openEdit(row.original) }, () => h(Pencil, { class: 'h-3.5 w-3.5' })),
-        h(Button, { variant: 'ghost', size: 'icon', class: 'h-7 w-7 text-destructive hover:text-destructive', onClick: () => deleteRule(row.original) }, () => h(Trash2, { class: 'h-3.5 w-3.5' })),
-      ]),
-  },
+  ...(auth.isAdmin
+    ? [
+        {
+          id: 'actions',
+          header: '',
+          cell: ({ row }: { row: { original: KpiRule } }) =>
+            h('div', { class: 'flex items-center gap-1' }, [
+              h(Button, { variant: 'ghost', size: 'icon', class: 'h-7 w-7', onClick: () => openEdit(row.original) }, () => h(Pencil, { class: 'h-3.5 w-3.5' })),
+              h(Button, { variant: 'ghost', size: 'icon', class: 'h-7 w-7 text-destructive hover:text-destructive', onClick: () => deleteRule(row.original) }, () => h(Trash2, { class: 'h-3.5 w-3.5' })),
+            ]),
+        },
+      ]
+    : []),
 ]
 
 onMounted(async () => {
@@ -89,7 +96,7 @@ onMounted(async () => {
 <template>
   <div class="flex items-start justify-between">
     <PageHeader title="KPI Rules" description="List of all kpi rules" />
-    <Button @click="openCreate">Add rule</Button>
+    <Button v-if="auth.isAdmin" @click="openCreate">Add rule</Button>
   </div>
 
   <Card>

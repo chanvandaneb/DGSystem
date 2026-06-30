@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import { ArrowRight, Pin } from 'lucide-vue-next'
 import { api } from '@/lib/api'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import PageHeader from '@/components/layout/PageHeader.vue'
+import { announcementTypeMeta, relativeTime, type AnnouncementType } from '@/lib/announcements'
 
 interface KpiCard {
   label: string
@@ -34,6 +37,8 @@ interface Announcement {
   title: string
   author: string
   date: string
+  type: AnnouncementType
+  pinned?: boolean
 }
 
 interface RecentEarning {
@@ -51,6 +56,7 @@ interface Summary {
   recentEarnings: RecentEarning[]
 }
 
+const router = useRouter()
 const summary = ref<Summary | null>(null)
 const error = ref('')
 
@@ -135,14 +141,39 @@ onMounted(async () => {
   </div>
 
   <Card v-if="summary" class="mt-6">
-    <CardHeader>
-      <CardTitle class="text-base text-foreground">Announcements</CardTitle>
-      <p class="text-xs text-muted-foreground">All important information will be announced here.</p>
+    <CardHeader class="flex-row items-center justify-between space-y-0">
+      <div>
+        <CardTitle class="text-base text-foreground">Announcements</CardTitle>
+        <p class="mt-1 text-xs text-muted-foreground">All important information will be announced here.</p>
+      </div>
+      <button
+        type="button"
+        class="flex items-center gap-1 text-xs font-medium text-[#2563EB] transition-colors hover:text-[#1D4ED8]"
+        @click="router.push('/announcements')"
+      >
+        View all
+        <ArrowRight class="h-3.5 w-3.5" />
+      </button>
     </CardHeader>
     <CardContent class="space-y-3">
-      <div v-for="a in summary.recentAnnouncements" :key="a.id" class="border-b border-border last:border-0 pb-3 last:pb-0">
-        <p class="font-medium">{{ a.title }}</p>
-        <p class="text-xs text-muted-foreground">{{ a.author }} &middot; {{ a.date }}</p>
+      <div
+        v-for="a in summary.recentAnnouncements"
+        :key="a.id"
+        class="flex gap-3 rounded-lg border border-border p-3 transition-colors hover:bg-accent/50"
+      >
+        <div :class="['flex h-9 w-9 shrink-0 items-center justify-center rounded-full', announcementTypeMeta[a.type].iconWrapClass]">
+          <component :is="announcementTypeMeta[a.type].icon" class="h-4.5 w-4.5" />
+        </div>
+        <div class="min-w-0 flex-1">
+          <div class="flex items-center gap-1.5">
+            <p class="truncate font-medium">{{ a.title }}</p>
+            <Pin v-if="a.pinned" class="h-3 w-3 shrink-0 text-muted-foreground" />
+          </div>
+          <p class="text-xs text-muted-foreground">{{ a.author }} &middot; {{ relativeTime(a.date) }}</p>
+        </div>
+        <Badge :class="announcementTypeMeta[a.type].badgeClass" class="h-fit shrink-0 border-transparent">
+          {{ announcementTypeMeta[a.type].label }}
+        </Badge>
       </div>
       <p v-if="!summary.recentAnnouncements.length" class="text-sm text-muted-foreground">No announcements</p>
     </CardContent>

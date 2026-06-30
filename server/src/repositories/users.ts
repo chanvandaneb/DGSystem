@@ -5,6 +5,7 @@ export interface User {
   username: string
   passwordHash: string
   name: string
+  role: 'admin' | 'employee'
 }
 
 export function findUserByUsername(username: string): User | undefined {

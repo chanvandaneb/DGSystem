@@ -19,7 +19,9 @@ dashboardRouter.get('/summary', (_req, res) => {
     ],
     userStatuses: employeeStatuses,
     recentBreaks: attendanceBreaks.slice(0, 5),
-    recentAnnouncements: announcements.slice(0, 3),
+    recentAnnouncements: [...announcements]
+      .sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0) || b.date.localeCompare(a.date))
+      .slice(0, 3),
     recentEarnings,
   })
 })

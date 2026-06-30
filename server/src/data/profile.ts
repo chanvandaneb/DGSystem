@@ -11,6 +11,7 @@ export const profileDevices: ProfileDevice[] = [
 ]
 
 export interface ProfileData {
+  avatar: string
   eid: string
   fullname: string
   birthday: string
@@ -35,6 +36,7 @@ export interface ProfileData {
 }
 
 export const profile: ProfileData = {
+  avatar: '',
   eid: 'KH0120',
   fullname: 'Chan Vandanet',
   birthday: '2001-03-14',

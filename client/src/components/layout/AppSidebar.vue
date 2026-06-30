@@ -71,8 +71,8 @@ function onGroupClick(item: NavItem) {
                   'flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium transition-colors',
                   sidebar.collapsed && 'justify-center px-0',
                   isActive
-                    ? 'bg-accent text-accent-foreground'
-                    : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground',
+                    ? 'bg-sidebar-accent text-sidebar-accent-foreground'
+                    : 'text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground',
                 )"
               >
                 <component :is="item.icon" class="h-4 w-4 shrink-0" />
@@ -88,8 +88,8 @@ function onGroupClick(item: NavItem) {
                 :class="[
                   sidebar.collapsed && 'justify-center px-0',
                   isGroupActive(item)
-                    ? 'bg-accent text-accent-foreground'
-                    : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground',
+                    ? 'bg-sidebar-accent text-sidebar-accent-foreground'
+                    : 'text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground',
                 ]"
                 @click="onGroupClick(item)"
               >
@@ -113,8 +113,8 @@ function onGroupClick(item: NavItem) {
                     :class="cn(
                       'block rounded-lg px-3 py-1.5 text-sm transition-colors',
                       isActive
-                        ? 'bg-accent font-medium text-accent-foreground'
-                        : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground',
+                        ? 'bg-sidebar-accent font-medium text-sidebar-accent-foreground'
+                        : 'text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground',
                     )"
                   >
                     {{ child.label }}

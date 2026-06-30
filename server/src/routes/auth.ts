@@ -20,7 +20,7 @@ authRouter.post('/login', (req, res) => {
   }
 
   const token = jwt.sign({ sub: user.id }, JWT_SECRET, { expiresIn: '7d' })
-  res.json({ token, user: { id: user.id, username: user.username, name: user.name } })
+  res.json({ token, user: { id: user.id, username: user.username, name: user.name, role: user.role } })
 })
 
 authRouter.get('/me', (req, res) => {
@@ -37,7 +37,7 @@ authRouter.get('/me', (req, res) => {
       res.status(401).json({ error: 'Not authenticated' })
       return
     }
-    res.json({ id: user.id, username: user.username, name: user.name })
+    res.json({ id: user.id, username: user.username, name: user.name, role: user.role })
   } catch {
     res.status(401).json({ error: 'Invalid or expired token' })
   }

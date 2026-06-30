@@ -4,6 +4,7 @@ export interface AuthUser {
   id: string
   username: string
   name: string
+  role: 'admin' | 'employee'
 }
 
 export const useAuthStore = defineStore('auth', {
@@ -13,6 +14,7 @@ export const useAuthStore = defineStore('auth', {
   }),
   getters: {
     isAuthenticated: (state) => !!state.token,
+    isAdmin: (state) => state.user?.role === 'admin',
   },
   actions: {
     setSession(token: string, user: AuthUser) {
