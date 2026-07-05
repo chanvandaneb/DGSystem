@@ -21,8 +21,8 @@ On first run the server creates `server/data.sqlite` and seeds it with demo data
 ### Login
 
 ```
-Username: chanvandaneb
-Password: dgsystem123
+Username: user
+Password: 123456
 ```
 
 ## Project structure
@@ -57,15 +57,16 @@ Run from the repo root:
 
 ## Features
 
-- **Dashboard** — KPI cards, employee status board, recent breaks, announcements, earnings
-- **Attendance** — check-in/out records, reports, breaks, plus a live `/clock` check-in screen
-- **KPI** — entries, scores report, rules (create/edit/delete), categories
+- **Dashboard** — personalized greeting, KPI cards computed from live data, working-hours trend chart with late-day highlighting, team presence donut, employee status board, recent breaks, announcements, earnings
+- **Live attendance tracking** — the `/clock` screen records check-ins, typed breaks (WC / HR / Office Work / Other), and check-outs to SQLite; state survives reloads, late arrivals are flagged automatically, and records flow into the Attendances table, reports, and dashboard
+- **KPI** — entries with role-based visibility (employees see their own), admin approve/reject review workflow, scores report, rules (create/edit/delete)
+- **Announcements** — type icons and badges (Holiday / KPI / General / Urgent), pinning, relative timestamps; admins can publish, pin, and delete from the UI
 - **Tasks** — table view with filters, Kanban board (drag-and-drop), bulk delete, scores
-- **Accounts** — credentials vault with full CRUD and bulk delete
+- **Accounts** — credentials vault with edit and bulk delete
 - **Knowledge** — category browser + article archive
 - **Bookmarks** — categorized link collections
-- **Auth** — JWT-based login, protected API routes
-- **Other** — command palette (`⌘K`), notifications, light/dark theme, collapsible sidebar
+- **Auth** — JWT-based login, protected API routes, role-based access control (admin/employee)
+- **Other** — command palette (`⌘K`), notifications, light/dark theme with consistent themed scrollbars, collapsible sidebar, avatar upload with client-side resize
 
 ## Notes
 

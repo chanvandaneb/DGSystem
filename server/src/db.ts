@@ -62,6 +62,48 @@ db.exec(`
     type TEXT DEFAULT 'system'
   );
 
+  CREATE TABLE IF NOT EXISTS attendance (
+    id TEXT PRIMARY KEY,
+    userId TEXT NOT NULL,
+    department TEXT DEFAULT '',
+    eid TEXT DEFAULT '',
+    name TEXT DEFAULT '',
+    date TEXT NOT NULL,
+    checkIn TEXT NOT NULL,
+    checkOut TEXT
+  );
+
+  CREATE TABLE IF NOT EXISTS attendance_breaks (
+    id TEXT PRIMARY KEY,
+    attendanceId TEXT NOT NULL,
+    date TEXT NOT NULL,
+    breakIn TEXT NOT NULL,
+    breakOut TEXT,
+    type TEXT DEFAULT 'other',
+    reason TEXT DEFAULT ''
+  );
+
+  CREATE TABLE IF NOT EXISTS announcements (
+    id TEXT PRIMARY KEY,
+    title TEXT NOT NULL,
+    body TEXT DEFAULT '',
+    author TEXT DEFAULT '',
+    date TEXT NOT NULL,
+    type TEXT DEFAULT 'general',
+    pinned INTEGER DEFAULT 0
+  );
+
+  CREATE TABLE IF NOT EXISTS kpi_entries (
+    id TEXT PRIMARY KEY,
+    date TEXT NOT NULL,
+    reporter TEXT DEFAULT '',
+    reporterPoint INTEGER DEFAULT 0,
+    reportee TEXT DEFAULT '',
+    reporteePoint INTEGER DEFAULT 0,
+    title TEXT DEFAULT '',
+    status TEXT DEFAULT 'Pending'
+  );
+
   CREATE TABLE IF NOT EXISTS users (
     id TEXT PRIMARY KEY,
     username TEXT UNIQUE NOT NULL,
@@ -106,8 +148,8 @@ const userCount = db.prepare('SELECT COUNT(*) as count FROM users').get() as { c
 if (userCount.count === 0) {
   db.prepare('INSERT INTO users (id, username, passwordHash, name, role) VALUES (?, ?, ?, ?, ?)').run(
     '1',
-    'chanvandaneb',
-    bcrypt.hashSync('dgsystem123', 10),
+    'user',
+    bcrypt.hashSync('123456', 10),
     'Chan Vandanet',
     'employee',
   )

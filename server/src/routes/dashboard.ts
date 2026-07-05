@@ -1,7 +1,7 @@
 import { Router } from 'express'
-import { announcements } from '../data/announcements.js'
+import { listAnnouncements } from '../repositories/announcements.js'
 import { employeeStatuses, recentEarnings } from '../data/employees.js'
-import { attendanceBreaks, attendanceRecords } from '../data/attendance.js'
+import { listAttendanceRecords, listAttendanceBreaks } from '../repositories/attendance.js'
 import { listTasks } from '../repositories/tasks.js'
 
 export const dashboardRouter = Router()
@@ -25,7 +25,7 @@ dashboardRouter.get('/summary', (_req, res) => {
   const todoCount = tasks.filter((t) => t.progress === 'Todo').length
   const doingCount = tasks.filter((t) => t.progress === 'Doing').length
 
-  const sortedRecords = [...attendanceRecords].sort((a, b) => a.date.localeCompare(b.date))
+  const sortedRecords = [...listAttendanceRecords()].sort((a, b) => a.date.localeCompare(b.date))
   const lateCount = sortedRecords.filter((r) => checkInMinutes(r.checkIn) > SHIFT_START_MINUTES).length
   const completed = sortedRecords.filter((r) => r.checkOut)
   const totalHours = completed.reduce((sum, r) => sum + workedHours(r.workingHours), 0)
@@ -55,10 +55,8 @@ dashboardRouter.get('/summary', (_req, res) => {
     attendanceTrend,
     presence,
     userStatuses: employeeStatuses,
-    recentBreaks: attendanceBreaks.slice(0, 5),
-    recentAnnouncements: [...announcements]
-      .sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0) || b.date.localeCompare(a.date))
-      .slice(0, 3),
+    recentBreaks: listAttendanceBreaks().slice(0, 5),
+    recentAnnouncements: listAnnouncements().slice(0, 3),
     recentEarnings,
   })
 })

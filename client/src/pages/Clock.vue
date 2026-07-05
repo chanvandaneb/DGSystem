@@ -7,6 +7,8 @@ import { Badge } from '@/components/ui/badge'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import PageHeader from '@/components/layout/PageHeader.vue'
+import { api } from '@/lib/api'
+import { useToast } from '@/composables/useToast'
 import { cn } from '@/lib/utils'
 
 const now = ref(new Date())
@@ -25,10 +27,18 @@ const breakTypes = [
   { value: 'other', label: 'Other', icon: MoreHorizontal },
 ] as const
 
+interface TodayState {
+  session: { id: string; date: string; checkIn: string; checkOut: string | null } | null
+  activeBreak: { id: string; breakIn: string; type: string } | null
+}
+
+const toast = useToast()
 const checkedIn = ref(false)
 const onBreak = ref(false)
 const breakType = ref<string | null>(null)
 const lateMinutes = ref<number | null>(null)
+const checkInTime = ref<string | null>(null)
+const busy = ref(false)
 
 const showBreakDialog = ref(false)
 const showCheckOutDialog = ref(false)
@@ -43,44 +53,87 @@ const fullDate = computed(() =>
 const isLate = computed(() => lateMinutes.value !== null && lateMinutes.value > 0)
 const breakTypeLabel = computed(() => breakTypes.find((b) => b.value === breakType.value)?.label ?? null)
 
-function checkIn() {
-  const shiftStart = new Date(now.value)
-  shiftStart.setHours(SHIFT_START_HOUR, SHIFT_START_MINUTE, 0, 0)
-  const diffMinutes = Math.floor((now.value.getTime() - shiftStart.getTime()) / 60000)
-  lateMinutes.value = diffMinutes > 0 ? diffMinutes : 0
-  checkedIn.value = true
+function computeLateMinutes(checkInStr: string): number {
+  const [h = 0, m = 0] = checkInStr.split(':').map(Number)
+  const diff = (h * 60 + m) - (SHIFT_START_HOUR * 60 + SHIFT_START_MINUTE)
+  return diff > 0 ? diff : 0
 }
 
-function openBreakDialog() {
+function applyState(state: TodayState) {
+  const active = !!state.session && !state.session.checkOut
+  checkedIn.value = active
+  checkInTime.value = active ? state.session!.checkIn : null
+  lateMinutes.value = active ? computeLateMinutes(state.session!.checkIn) : null
+  onBreak.value = !!state.activeBreak
+  breakType.value = state.activeBreak?.type ?? null
+}
+
+async function checkIn() {
+  busy.value = true
+  try {
+    applyState(await api.post<TodayState>('/attendance/check-in', {}))
+    toast.success(`Checked in at ${checkInTime.value}`)
+  } catch (e) {
+    toast.error(e instanceof Error ? e.message : 'Check-in failed')
+  } finally {
+    busy.value = false
+  }
+}
+
+async function openBreakDialog() {
   if (onBreak.value) {
     // already on break: break out immediately, no need to pick a type again
-    onBreak.value = false
-    breakType.value = null
+    busy.value = true
+    try {
+      applyState(await api.post<TodayState>('/attendance/break-out', {}))
+      toast.success('Break ended')
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : 'Break out failed')
+    } finally {
+      busy.value = false
+    }
     return
   }
   showBreakDialog.value = true
 }
 
-function confirmBreak(type: string) {
-  breakType.value = type
-  onBreak.value = true
+async function confirmBreak(type: string) {
   showBreakDialog.value = false
+  busy.value = true
+  try {
+    applyState(await api.post<TodayState>('/attendance/break-in', { type }))
+    toast.success('Break started')
+  } catch (e) {
+    toast.error(e instanceof Error ? e.message : 'Break in failed')
+  } finally {
+    busy.value = false
+  }
 }
 
 function requestCheckOut() {
   showCheckOutDialog.value = true
 }
 
-function confirmCheckOut() {
-  checkedIn.value = false
-  onBreak.value = false
-  breakType.value = null
-  lateMinutes.value = null
+async function confirmCheckOut() {
   showCheckOutDialog.value = false
+  busy.value = true
+  try {
+    applyState(await api.post<TodayState>('/attendance/check-out', {}))
+    toast.success('Checked out — see you tomorrow!')
+  } catch (e) {
+    toast.error(e instanceof Error ? e.message : 'Check-out failed')
+  } finally {
+    busy.value = false
+  }
 }
 
-onMounted(() => {
+onMounted(async () => {
   timer = setInterval(() => (now.value = new Date()), 1000)
+  try {
+    applyState(await api.get<TodayState>('/attendance/today'))
+  } catch {
+    // not critical: page still works, actions will surface errors
+  }
 })
 onUnmounted(() => clearInterval(timer))
 </script>
@@ -126,7 +179,7 @@ onUnmounted(() => clearInterval(timer))
             {{ checkedIn ? (onBreak ? 'On break' : 'Working') : 'Standby mode' }}
           </p>
           <p v-if="checkedIn" class="mt-1 text-xs text-muted-foreground">
-            Break: {{ onBreak ? `Active (${breakTypeLabel})` : 'Inactive' }}
+            Checked in at {{ checkInTime }} &middot; Break: {{ onBreak ? `Active (${breakTypeLabel})` : 'Inactive' }}
           </p>
           <div v-if="checkedIn" class="mt-2 flex items-center gap-2">
             <Badge v-if="isLate" variant="warning">Late by {{ lateMinutes }} min</Badge>
@@ -153,15 +206,15 @@ onUnmounted(() => clearInterval(timer))
           <span class="text-xs">Camera unavailable</span>
         </div>
 
-        <Button type="button" size="lg" class="w-full" :disabled="checkedIn" @click="checkIn">
+        <Button type="button" size="lg" class="w-full" :disabled="checkedIn || busy" @click="checkIn">
           <LogIn class="h-4 w-4" />
           Check in
         </Button>
-        <Button type="button" size="lg" variant="outline" class="w-full" :disabled="!checkedIn" @click="openBreakDialog">
+        <Button type="button" size="lg" variant="outline" class="w-full" :disabled="!checkedIn || busy" @click="openBreakDialog">
           <Coffee class="h-4 w-4" />
           {{ onBreak ? 'Break out' : 'Break in' }}
         </Button>
-        <Button type="button" size="lg" variant="outline" class="w-full" :disabled="!checkedIn" @click="requestCheckOut">
+        <Button type="button" size="lg" variant="outline" class="w-full" :disabled="!checkedIn || busy" @click="requestCheckOut">
           <LogOut class="h-4 w-4" />
           Check out
         </Button>

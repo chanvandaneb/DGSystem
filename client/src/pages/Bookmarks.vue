@@ -74,13 +74,7 @@ onMounted(refreshCategories)
 </script>
 
 <template>
-  <div class="flex items-start justify-between">
-    <PageHeader title="Bookmarks" description="List of all bookmarks" />
-    <Button @click="openAdd()">
-      <Plus class="h-4 w-4" />
-      Add bookmark
-    </Button>
-  </div>
+  <PageHeader title="Bookmarks" description="List of all bookmarks" />
 
   <Card>
     <CardContent class="pt-6">

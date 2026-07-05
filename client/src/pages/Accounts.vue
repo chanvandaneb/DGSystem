@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { h, ref, reactive, computed, onMounted, watch } from 'vue'
 import type { ColumnDef } from '@tanstack/vue-table'
-import { Link2, ExternalLink, Copy, Pencil, Trash2, Plus, ImageOff } from 'lucide-vue-next'
+import { Link2, ExternalLink, Copy, Pencil, Trash2, ImageOff } from 'lucide-vue-next'
 import { api } from '@/lib/api'
 import { useToast } from '@/composables/useToast'
 import PageHeader from '@/components/layout/PageHeader.vue'
@@ -10,7 +10,6 @@ import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import DataTable from '@/components/data-table/DataTable.vue'
-import AddAccountDialog from '@/components/accounts/AddAccountDialog.vue'
 
 interface Account {
   id: string
@@ -33,7 +32,6 @@ const accounts = ref<Account[]>([])
 const search = ref('')
 const selected = ref<Account | null>(null)
 const activeTab = ref<'detail' | 'history'>('detail')
-const addOpen = ref(false)
 const saving = ref(false)
 const selectedIds = ref<string[]>([])
 const bulkDeleting = ref(false)
@@ -55,16 +53,6 @@ function select(account: Account) {
 
 function clearFilters() {
   search.value = ''
-}
-
-async function createAccount(input: Omit<Account, 'id'>) {
-  try {
-    const created = await api.post<Account>('/accounts', input)
-    accounts.value = [created, ...accounts.value]
-    toast.success(`Account "${created.name}" created`)
-  } catch (e) {
-    toast.error(e instanceof Error ? e.message : 'Failed to create account')
-  }
 }
 
 async function saveAccount() {
@@ -158,13 +146,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="flex items-start justify-between">
-    <PageHeader title="Accounts" description="Manage all system accounts" />
-    <Button @click="addOpen = true">
-      <Plus class="h-4 w-4" />
-      Add account
-    </Button>
-  </div>
+  <PageHeader title="Accounts" description="Manage all system accounts" />
 
   <div class="grid gap-4 lg:grid-cols-[1fr_360px]">
     <Card>
@@ -288,6 +270,4 @@ onMounted(async () => {
       </CardContent>
     </Card>
   </div>
-
-  <AddAccountDialog v-model:open="addOpen" @create="createAccount" />
 </template>

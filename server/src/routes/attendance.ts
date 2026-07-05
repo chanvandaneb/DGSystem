@@ -1,10 +1,28 @@
 import { Router } from 'express'
-import { attendanceRecords, attendanceDevices, attendanceBreaks } from '../data/attendance.js'
+import { attendanceDevices } from '../data/attendance.js'
+import {
+  listAttendanceRecords,
+  listAttendanceBreaks,
+  getTodayState,
+  checkIn,
+  checkOut,
+  breakIn,
+  breakOut,
+} from '../repositories/attendance.js'
 
 export const attendanceRouter = Router()
 
+const TIME_ZONE = 'Asia/Phnom_Penh'
+
+function nowParts(): { date: string; time: string } {
+  const now = new Date()
+  const date = now.toLocaleDateString('en-CA', { timeZone: TIME_ZONE })
+  const time = now.toLocaleTimeString('en-GB', { timeZone: TIME_ZONE, hour12: false })
+  return { date, time }
+}
+
 attendanceRouter.get('/', (_req, res) => {
-  res.json(attendanceRecords)
+  res.json(listAttendanceRecords())
 })
 
 attendanceRouter.get('/devices', (_req, res) => {
@@ -12,13 +30,41 @@ attendanceRouter.get('/devices', (_req, res) => {
 })
 
 attendanceRouter.get('/breaks', (_req, res) => {
-  res.json(attendanceBreaks)
+  res.json(listAttendanceBreaks())
+})
+
+attendanceRouter.get('/today', (req, res) => {
+  const { date } = nowParts()
+  res.json(getTodayState(req.userId!, date))
+})
+
+attendanceRouter.post('/check-in', (req, res) => {
+  const { date, time } = nowParts()
+  res.json(checkIn(req.userId!, date, time))
+})
+
+attendanceRouter.post('/check-out', (req, res) => {
+  const { date, time } = nowParts()
+  res.json(checkOut(req.userId!, date, time))
+})
+
+attendanceRouter.post('/break-in', (req, res) => {
+  const { date, time } = nowParts()
+  const type = typeof req.body?.type === 'string' ? req.body.type : 'other'
+  const reason = typeof req.body?.reason === 'string' ? req.body.reason : ''
+  res.json(breakIn(req.userId!, date, time, type, reason))
+})
+
+attendanceRouter.post('/break-out', (req, res) => {
+  const { date, time } = nowParts()
+  res.json(breakOut(req.userId!, date, time))
 })
 
 attendanceRouter.get('/report', (_req, res) => {
-  const totalHoursSec = attendanceRecords.reduce((sum, r) => sum + parseDuration(r.workingHours), 0)
-  const totalBreaksSec = attendanceRecords.reduce((sum, r) => sum + parseDuration(r.breakDuration), 0)
-  const totalBreakCount = attendanceRecords.reduce((sum, r) => sum + r.breaks, 0)
+  const records = listAttendanceRecords()
+  const totalHoursSec = records.reduce((sum, r) => sum + parseDuration(r.workingHours), 0)
+  const totalBreaksSec = records.reduce((sum, r) => sum + parseDuration(r.breakDuration), 0)
+  const totalBreakCount = records.reduce((sum, r) => sum + r.breaks, 0)
 
   res.json([
     {

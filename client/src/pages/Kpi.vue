@@ -2,7 +2,9 @@
 import { h, ref, computed, onMounted } from 'vue'
 import type { ColumnDef } from '@tanstack/vue-table'
 import { useRouter } from 'vue-router'
+import { Check, X } from 'lucide-vue-next'
 import { useAuthStore } from '@/stores/auth'
+import { useToast } from '@/composables/useToast'
 import { api } from '@/lib/api'
 import PageHeader from '@/components/layout/PageHeader.vue'
 import { Card, CardContent } from '@/components/ui/card'
@@ -51,6 +53,18 @@ const statusVariant: Record<KpiEntry['status'], 'warning' | 'success' | 'destruc
   Rejected: 'destructive',
 }
 
+const toast = useToast()
+
+async function setStatus(entry: KpiEntry, status: 'Approved' | 'Rejected') {
+  try {
+    const updated = await api.put<KpiEntry>(`/kpi/${entry.id}/status`, { status })
+    entries.value = entries.value.map((e) => (e.id === updated.id ? updated : e))
+    toast.success(`"${updated.title}" ${status.toLowerCase()}`)
+  } catch (e) {
+    toast.error(e instanceof Error ? e.message : 'Failed to update status')
+  }
+}
+
 const columns: ColumnDef<KpiEntry, any>[] = [
   { accessorKey: 'date', header: 'Date' },
   { accessorKey: 'reporter', header: 'Reporter' },
@@ -63,6 +77,41 @@ const columns: ColumnDef<KpiEntry, any>[] = [
     header: 'Status',
     cell: ({ row }) => h(Badge, { variant: statusVariant[row.original.status as KpiEntry['status']] }, () => row.original.status),
   },
+  ...(useAuthStore().isAdmin
+    ? [
+        {
+          id: 'actions',
+          header: 'Review',
+          cell: ({ row }: { row: { original: KpiEntry } }) =>
+            row.original.status === 'Pending'
+              ? h('div', { class: 'flex items-center gap-1' }, [
+                  h(
+                    Button,
+                    {
+                      variant: 'ghost',
+                      size: 'icon',
+                      class: 'h-7 w-7 text-emerald-500 hover:text-emerald-600',
+                      title: 'Approve',
+                      onClick: () => setStatus(row.original, 'Approved'),
+                    },
+                    () => h(Check, { class: 'h-4 w-4' }),
+                  ),
+                  h(
+                    Button,
+                    {
+                      variant: 'ghost',
+                      size: 'icon',
+                      class: 'h-7 w-7 text-destructive hover:text-destructive',
+                      title: 'Reject',
+                      onClick: () => setStatus(row.original, 'Rejected'),
+                    },
+                    () => h(X, { class: 'h-4 w-4' }),
+                  ),
+                ])
+              : null,
+        } as ColumnDef<KpiEntry, any>,
+      ]
+    : []),
 ]
 
 onMounted(async () => {
