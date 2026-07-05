@@ -30,7 +30,6 @@ interface AttendanceRecord {
 const SHIFT_START_MINUTES = 8 * 60
 
 const records = ref<AttendanceRecord[]>([])
-const employeeFilter = ref('')
 const dateFrom = ref('')
 const dateTo = ref('')
 const statusFilter = ref('all')
@@ -61,7 +60,6 @@ const statusVariant: Record<ReturnType<typeof recordStatus>, 'success' | 'warnin
 
 const filtered = computed(() =>
   records.value.filter((r) => {
-    if (employeeFilter.value && !r.name.toLowerCase().includes(employeeFilter.value.toLowerCase())) return false
     if (dateFrom.value && r.date < dateFrom.value) return false
     if (dateTo.value && r.date > dateTo.value) return false
     if (statusFilter.value !== 'all' && recordStatus(r) !== statusFilter.value) return false
@@ -89,7 +87,6 @@ const summary = computed(() => {
 })
 
 function clearFilters() {
-  employeeFilter.value = ''
   dateFrom.value = ''
   dateTo.value = ''
   statusFilter.value = 'all'
@@ -189,7 +186,6 @@ onMounted(async () => {
       <div class="mb-4 flex flex-wrap items-center gap-3">
         <Input v-model="dateFrom" type="date" placeholder="From date" class="max-w-[160px]" />
         <Input v-model="dateTo" type="date" placeholder="To date" class="max-w-[160px]" />
-        <Input v-model="employeeFilter" placeholder="Employee name" class="max-w-xs" />
         <Select v-model="statusFilter">
           <SelectTrigger class="w-40" placeholder="Status" />
           <SelectContent>
