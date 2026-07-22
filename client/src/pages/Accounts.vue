@@ -131,11 +131,11 @@ const columns: ColumnDef<Account, any>[] = [
     header: 'Action',
     cell: ({ row }) =>
       h('div', { class: 'flex items-center gap-1' }, [
-        h(Button, { variant: 'ghost', size: 'icon', class: 'h-7 w-7', onClick: () => row.original.link && window.open(row.original.link, '_blank') }, () => h(Link2, { class: 'h-3.5 w-3.5' })),
-        h(Button, { variant: 'ghost', size: 'icon', class: 'h-7 w-7', onClick: () => select(row.original) }, () => h(ExternalLink, { class: 'h-3.5 w-3.5' })),
-        h(Button, { variant: 'ghost', size: 'icon', class: 'h-7 w-7', onClick: () => navigator.clipboard.writeText(row.original.username) }, () => h(Copy, { class: 'h-3.5 w-3.5' })),
-        h(Button, { variant: 'ghost', size: 'icon', class: 'h-7 w-7', onClick: () => select(row.original) }, () => h(Pencil, { class: 'h-3.5 w-3.5' })),
-        h(Button, { variant: 'ghost', size: 'icon', class: 'h-7 w-7 text-destructive hover:text-destructive', onClick: () => deleteAccount(row.original) }, () => h(Trash2, { class: 'h-3.5 w-3.5' })),
+        h(Button, { variant: 'outline', size: 'icon', class: 'h-7 w-7', onClick: () => row.original.link && window.open(row.original.link, '_blank') }, () => h(Link2, { class: 'h-3.5 w-3.5' })),
+        h(Button, { variant: 'outline', size: 'icon', class: 'h-7 w-7', onClick: () => select(row.original) }, () => h(ExternalLink, { class: 'h-3.5 w-3.5' })),
+        h(Button, { variant: 'outline', size: 'icon', class: 'h-7 w-7', onClick: () => navigator.clipboard.writeText(row.original.username) }, () => h(Copy, { class: 'h-3.5 w-3.5' })),
+        h(Button, { variant: 'outline', size: 'icon', class: 'h-7 w-7', onClick: () => select(row.original) }, () => h(Pencil, { class: 'h-3.5 w-3.5' })),
+        h(Button, { variant: 'outline', size: 'icon', class: 'h-7 w-7 text-destructive hover:text-destructive hover:border-destructive', onClick: () => deleteAccount(row.original) }, () => h(Trash2, { class: 'h-3.5 w-3.5' })),
       ]),
   },
 ]

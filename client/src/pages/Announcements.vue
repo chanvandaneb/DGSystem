@@ -112,11 +112,11 @@ onMounted(load)
             {{ announcementTypeMeta[a.type].label }}
           </Badge>
           <template v-if="auth.isAdmin">
-            <Button variant="ghost" size="icon" class="h-7 w-7" :title="a.pinned ? 'Unpin' : 'Pin'" @click="togglePin(a)">
+            <Button variant="outline" size="icon" class="h-7 w-7" :title="a.pinned ? 'Unpin' : 'Pin'" @click="togglePin(a)">
               <PinOff v-if="a.pinned" class="h-3.5 w-3.5" />
               <Pin v-else class="h-3.5 w-3.5" />
             </Button>
-            <Button variant="ghost" size="icon" class="h-7 w-7 text-destructive hover:text-destructive" title="Delete" @click="remove(a)">
+            <Button variant="outline" size="icon" class="h-7 w-7 text-destructive hover:text-destructive hover:border-destructive" title="Delete" @click="remove(a)">
               <Trash2 class="h-3.5 w-3.5" />
             </Button>
           </template>

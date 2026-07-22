@@ -144,18 +144,11 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="mb-6 flex flex-wrap items-end justify-between gap-4">
-    <div>
-      <h1 class="text-2xl font-semibold tracking-tight">{{ greeting }}, {{ auth.user?.name ?? 'there' }} 👋</h1>
-      <p class="mt-1 text-sm text-muted-foreground">{{ today }} · Here's what's happening today.</p>
-    </div>
-  </div>
-
   <p v-if="error" class="text-sm text-destructive">{{ error }}</p>
 
-  <div v-if="summary" class="grid gap-4 md:grid-cols-3">
+  <div v-if="summary" class="grid gap-4 md:grid-cols-2">
     <Card
-      v-for="(kpi, i) in summary.kpis"
+      v-for="(kpi, i) in summary.kpis.filter(k => k.accent !== 'orange')"
       :key="i"
       :class="`border-0 text-white ${accentBg[kpi.accent]}`"
     >

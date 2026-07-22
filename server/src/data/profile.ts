@@ -38,7 +38,7 @@ export interface ProfileData {
 export const profile: ProfileData = {
   avatar: '',
   eid: 'KH0120',
-  fullname: 'Chan Vandanet',
+  fullname: 'Alex Morgan',
   birthday: '2001-03-14',
   gender: 'Male',
   nationality: 'Cambodian',

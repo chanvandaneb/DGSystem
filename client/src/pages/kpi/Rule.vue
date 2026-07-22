@@ -80,8 +80,8 @@ const columns: ColumnDef<KpiRule, any>[] = [
           header: '',
           cell: ({ row }: { row: { original: KpiRule } }) =>
             h('div', { class: 'flex items-center gap-1' }, [
-              h(Button, { variant: 'ghost', size: 'icon', class: 'h-7 w-7', onClick: () => openEdit(row.original) }, () => h(Pencil, { class: 'h-3.5 w-3.5' })),
-              h(Button, { variant: 'ghost', size: 'icon', class: 'h-7 w-7 text-destructive hover:text-destructive', onClick: () => deleteRule(row.original) }, () => h(Trash2, { class: 'h-3.5 w-3.5' })),
+              h(Button, { variant: 'outline', size: 'icon', class: 'h-7 w-7', onClick: () => openEdit(row.original) }, () => h(Pencil, { class: 'h-3.5 w-3.5' })),
+              h(Button, { variant: 'outline', size: 'icon', class: 'h-7 w-7 text-destructive hover:text-destructive hover:border-destructive', onClick: () => deleteRule(row.original) }, () => h(Trash2, { class: 'h-3.5 w-3.5' })),
             ]),
         },
       ]

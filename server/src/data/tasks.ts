@@ -33,7 +33,7 @@ export const tasks: Task[] = [
   { id: '469', subject: 'SSM REQUEST BANNER SPONSOR', priority: 'Medium', category: 'Demnay', progress: 'Todo', start: '2026-04-20', end: '2026-04-25', viewable: 'TEAM: DES', author: 'CICI', assignee: '' },
   { id: '467', subject: '[KGVN] BANNER REMAKE - PROMO', priority: 'Medium', category: 'KingGroup', progress: 'Todo', start: '2026-04-18', end: '2026-04-22', viewable: 'TEAM: DES', author: 'LIDAS', assignee: '' },
   { id: '465', subject: 'REQUEST DESIGN FOR DEMNAY APP', priority: 'High', category: 'Demnay', progress: 'Doing', start: '2026-04-15', end: '2026-04-20', viewable: 'TEAM: DES', author: 'CICI', assignee: '' },
-  { id: '463', subject: '[SEO REQUEST] 4 BỘ THUMBNAIL', priority: 'Medium', category: 'MKT', progress: 'Todo', start: '2026-04-12', end: '2026-04-16', viewable: 'TEAM: DES', author: 'MAX', assignee: '' },
+  { id: '463', subject: '[SEO REQUEST] 4 THUMBNAIL SETS', priority: 'Medium', category: 'MKT', progress: 'Todo', start: '2026-04-12', end: '2026-04-16', viewable: 'TEAM: DES', author: 'MAX', assignee: '' },
   { id: '462', subject: '[KGVN] NEW PROMOTION BANNER', priority: 'High', category: 'KingGroup', progress: 'Todo', start: '2026-04-10', end: '2026-04-14', viewable: 'TEAM: DES', author: 'LIDAS', assignee: '' },
   { id: '461', subject: 'ADV - KG - BANNER 20260408', priority: 'High', category: 'MKT', progress: 'Done', start: '2026-04-08', end: '2026-04-10', viewable: 'TEAM: DES', author: 'KRIS', assignee: 'ERIZ' },
   { id: '459', subject: 'Logo & Icon for Demnay App', priority: 'Low', category: 'Demnay', progress: 'Doing', start: '2026-04-05', end: '2026-04-15', viewable: 'TEAM: DES', author: '', assignee: '' },

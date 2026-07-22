@@ -150,7 +150,7 @@ if (userCount.count === 0) {
     '1',
     'user',
     bcrypt.hashSync('123456', 10),
-    'Chan Vandanet',
+    'Alex Morgan',
     'employee',
   )
 }

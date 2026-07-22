@@ -88,7 +88,7 @@ const columns: ColumnDef<KpiEntry, any>[] = [
                   h(
                     Button,
                     {
-                      variant: 'ghost',
+                      variant: 'outline',
                       size: 'icon',
                       class: 'h-7 w-7 text-emerald-500 hover:text-emerald-600',
                       title: 'Approve',
@@ -99,7 +99,7 @@ const columns: ColumnDef<KpiEntry, any>[] = [
                   h(
                     Button,
                     {
-                      variant: 'ghost',
+                      variant: 'outline',
                       size: 'icon',
                       class: 'h-7 w-7 text-destructive hover:text-destructive',
                       title: 'Reject',

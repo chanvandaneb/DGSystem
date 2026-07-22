@@ -24,6 +24,10 @@ function isGroupActive(item: NavItem) {
   return item.children?.some((c) => c.to === route.path) ?? false
 }
 
+function isExact(to: string) {
+  return route.path === to
+}
+
 function onGroupClick(item: NavItem) {
   if (sidebar.collapsed) {
     sidebar.toggle()
@@ -57,29 +61,25 @@ function onGroupClick(item: NavItem) {
         </p>
         <div class="space-y-0.5">
           <template v-for="item in group.items" :key="item.label">
-            <RouterLink
+            <!-- Leaf nav item -->
+            <a
               v-if="item.to && !item.children"
-              :to="item.to"
-              custom
-              v-slot="{ href, navigate, isActive }"
+              :href="item.to"
+              :title="sidebar.collapsed ? item.label : undefined"
+              @click.prevent="$router.push(item.to!)"
+              :class="cn(
+                'flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium transition-colors',
+                sidebar.collapsed && 'justify-center px-0',
+                isExact(item.to!)
+                  ? 'bg-[#2563EB]/10 text-[#2563EB] border border-[#2563EB]'
+                  : 'text-muted-foreground hover:bg-[#2563EB]/10 hover:text-[#2563EB]',
+              )"
             >
-              <a
-                :href="href"
-                :title="sidebar.collapsed ? item.label : undefined"
-                @click="navigate"
-                :class="cn(
-                  'flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium transition-colors',
-                  sidebar.collapsed && 'justify-center px-0',
-                  isActive
-                    ? 'bg-sidebar-accent text-sidebar-accent-foreground'
-                    : 'text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground',
-                )"
-              >
-                <component :is="item.icon" class="h-4 w-4 shrink-0" />
-                <span v-if="!sidebar.collapsed">{{ item.label }}</span>
-              </a>
-            </RouterLink>
+              <component :is="item.icon" class="h-4 w-4 shrink-0" />
+              <span v-if="!sidebar.collapsed">{{ item.label }}</span>
+            </a>
 
+            <!-- Group nav item with children -->
             <div v-else>
               <button
                 type="button"
@@ -88,8 +88,8 @@ function onGroupClick(item: NavItem) {
                 :class="[
                   sidebar.collapsed && 'justify-center px-0',
                   isGroupActive(item)
-                    ? 'bg-sidebar-accent text-sidebar-accent-foreground'
-                    : 'text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground',
+                    ? 'bg-[#2563EB]/10 text-[#2563EB]'
+                    : 'text-muted-foreground hover:bg-[#2563EB]/10 hover:text-[#2563EB]',
                 ]"
                 @click="onGroupClick(item)"
               >
@@ -99,22 +99,24 @@ function onGroupClick(item: NavItem) {
                   <ChevronDown :class="cn('h-3.5 w-3.5 transition-transform', open[item.label] && 'rotate-180')" />
                 </template>
               </button>
-              <div v-show="open[item.label] && !sidebar.collapsed" class="mt-0.5 space-y-0.5 pl-9">
+              <div v-show="open[item.label] && !sidebar.collapsed" class="relative mt-1.5 space-y-1.5 pl-4">
+                <!-- vertical line -->
+                <span class="absolute left-[11px] top-0 bottom-0 w-px bg-border" />
                 <RouterLink
                   v-for="child in item.children"
                   :key="child.to"
                   :to="child.to"
                   custom
-                  v-slot="{ href, navigate, isActive }"
+                  v-slot="{ href, navigate }"
                 >
                   <a
                     :href="href"
                     @click="navigate"
                     :class="cn(
-                      'block rounded-lg px-3 py-1.5 text-sm transition-colors',
-                      isActive
-                        ? 'bg-sidebar-accent font-medium text-sidebar-accent-foreground'
-                        : 'text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground',
+                      'block rounded-lg pl-5 pr-3 py-1.5 text-sm transition-colors',
+                      isExact(child.to)
+                        ? 'font-medium text-[#2563EB] border border-[#2563EB] bg-[#2563EB]/10'
+                        : 'text-muted-foreground hover:bg-[#2563EB]/10 hover:text-[#2563EB]',
                     )"
                   >
                     {{ child.label }}

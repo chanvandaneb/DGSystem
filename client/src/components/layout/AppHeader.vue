@@ -26,7 +26,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
 </script>
 
 <template>
-  <header class="flex h-14 items-center gap-3 border-b border-border bg-sidebar px-4">
+  <header class="flex h-14 items-center gap-3 border-b border-border bg-white shadow-sm dark:bg-card px-4">
     <Button variant="ghost" size="icon" title="Toggle sidebar" @click="sidebar.toggle()">
       <PanelLeft class="h-4 w-4" />
     </Button>
