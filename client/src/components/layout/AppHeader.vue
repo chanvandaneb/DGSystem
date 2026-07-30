@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
-import { useRouter } from 'vue-router'
-import { Search, Timer, PanelLeft } from 'lucide-vue-next'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import { Search, Timer, PanelLeft, ChevronRight } from 'lucide-vue-next'
 import { Button } from '@/components/ui/button'
 import { useSidebarStore } from '@/stores/sidebar'
 import ThemeToggle from './ThemeToggle.vue'
@@ -11,7 +11,21 @@ import ProfileMenu from './ProfileMenu.vue'
 import CommandPalette from './CommandPalette.vue'
 
 const router = useRouter()
+const route = useRoute()
 const sidebar = useSidebarStore()
+
+const breadcrumbs = computed(() => {
+  const parts = route.path.split('/').filter(Boolean)
+  if (!parts.length) return [{ label: 'Dashboard', path: '/' }]
+  const crumbs = [{ label: 'Home', path: '/' }]
+  let current = ''
+  for (const part of parts) {
+    current += `/${part}`
+    const label = part.charAt(0).toUpperCase() + part.slice(1).replace(/-/g, ' ')
+    crumbs.push({ label, path: current })
+  }
+  return crumbs
+})
 const paletteOpen = ref(false)
 
 function onKeydown(e: KeyboardEvent) {
@@ -30,6 +44,20 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
     <Button variant="ghost" size="icon" title="Toggle sidebar" @click="sidebar.toggle()">
       <PanelLeft class="h-4 w-4" />
     </Button>
+
+    <!-- Breadcrumb -->
+    <nav class="hidden items-center gap-1 text-sm md:flex">
+      <template v-for="(crumb, i) in breadcrumbs" :key="crumb.path">
+        <ChevronRight v-if="i > 0" class="h-3.5 w-3.5 text-muted-foreground/50" />
+        <button
+          type="button"
+          :class="['transition-colors', i === breadcrumbs.length - 1 ? 'font-semibold text-foreground' : 'text-muted-foreground hover:text-foreground']"
+          @click="router.push(crumb.path)"
+        >
+          {{ crumb.label }}
+        </button>
+      </template>
+    </nav>
 
     <button
       type="button"

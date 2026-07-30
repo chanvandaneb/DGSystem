@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { h, ref, computed, onMounted } from 'vue'
 import type { ColumnDef } from '@tanstack/vue-table'
-import { Download, Clock, UserCheck, AlertTriangle, Timer } from 'lucide-vue-next'
+import { Download, Clock, UserCheck, AlertTriangle, Timer, ChevronLeft, ChevronRight } from 'lucide-vue-next'
 import { api } from '@/lib/api'
 import { downloadCsv } from '@/lib/csv'
 import PageHeader from '@/components/layout/PageHeader.vue'
@@ -122,6 +122,51 @@ const columns: ColumnDef<AttendanceRecord, any>[] = [
   },
 ]
 
+// ── Calendar heatmap ──────────────────────────────────────────────────
+const calendarMonth = ref(new Date().toISOString().slice(0, 7))
+
+function calendarLabel(ym: string) {
+  const [y, m] = ym.split('-')
+  return new Date(Number(y), Number(m) - 1, 1).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
+}
+function prevMonth() {
+  const d = new Date(calendarMonth.value + '-01')
+  d.setMonth(d.getMonth() - 1)
+  calendarMonth.value = d.toISOString().slice(0, 7)
+}
+function nextMonth() {
+  const d = new Date(calendarMonth.value + '-01')
+  d.setMonth(d.getMonth() + 1)
+  calendarMonth.value = d.toISOString().slice(0, 7)
+}
+
+const calendarDays = computed(() => {
+  const [y, m] = calendarMonth.value.split('-').map(Number)
+  const firstDay = new Date(y, m - 1, 1).getDay()
+  const daysInMonth = new Date(y, m, 0).getDate()
+  const byDate: Record<string, AttendanceRecord> = {}
+  for (const r of records.value) {
+    if (r.date.startsWith(calendarMonth.value)) byDate[r.date] = r
+  }
+  const cells: { date: string; day: number; record: AttendanceRecord | null; isToday: boolean }[] = []
+  const todayStr = new Date().toISOString().slice(0, 10)
+  for (let i = 0; i < firstDay; i++) cells.push({ date: '', day: 0, record: null, isToday: false })
+  for (let d = 1; d <= daysInMonth; d++) {
+    const date = `${calendarMonth.value}-${String(d).padStart(2, '0')}`
+    cells.push({ date, day: d, record: byDate[date] ?? null, isToday: date === todayStr })
+  }
+  return cells
+})
+
+function cellClass(cell: { date: string; day: number; record: AttendanceRecord | null; isToday: boolean }) {
+  if (!cell.day) return 'invisible'
+  const r = cell.record
+  if (!r) return cell.isToday ? 'border-2 border-[#2563EB]' : 'bg-muted/30 text-muted-foreground'
+  if (!r.checkOut) return 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300'
+  if (isLate(r)) return 'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300'
+  return 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300'
+}
+
 onMounted(async () => {
   records.value = await api.get<AttendanceRecord[]>('/attendance')
 })
@@ -174,6 +219,47 @@ onMounted(async () => {
       </CardContent>
     </Card>
   </div>
+
+  <!-- Monthly Calendar Heatmap -->
+  <Card class="mt-6 shadow-sm">
+    <CardHeader class="flex-row items-center justify-between space-y-0 pb-3">
+      <CardTitle class="text-base text-foreground flex items-center gap-2">
+        <Clock class="h-4 w-4 text-[#2563EB]" />
+        Attendance Calendar
+      </CardTitle>
+      <div class="flex items-center gap-2">
+        <button type="button" class="rounded-md p-1 hover:bg-accent transition-colors" @click="prevMonth">
+          <ChevronLeft class="h-4 w-4 text-muted-foreground" />
+        </button>
+        <span class="text-sm font-medium text-foreground min-w-[130px] text-center">{{ calendarLabel(calendarMonth) }}</span>
+        <button type="button" class="rounded-md p-1 hover:bg-accent transition-colors" @click="nextMonth">
+          <ChevronRight class="h-4 w-4 text-muted-foreground" />
+        </button>
+      </div>
+    </CardHeader>
+    <CardContent>
+      <div class="grid grid-cols-7 gap-1.5 mb-2">
+        <div v-for="d in ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']" :key="d"
+          class="text-center text-[11px] font-medium text-muted-foreground py-1">{{ d }}</div>
+      </div>
+      <div class="grid grid-cols-7 gap-1.5">
+        <div
+          v-for="(cell, i) in calendarDays"
+          :key="i"
+          :class="['flex h-10 w-full items-center justify-center rounded-lg text-xs font-medium transition-all', cellClass(cell)]"
+          :title="cell.record ? `${cell.date}: ${cell.record.checkIn} – ${cell.record.checkOut ?? 'ongoing'}` : cell.date"
+        >
+          {{ cell.day || '' }}
+        </div>
+      </div>
+      <div class="mt-3 flex items-center gap-4 text-[11px] text-muted-foreground">
+        <span class="flex items-center gap-1.5"><span class="h-3 w-3 rounded bg-emerald-100 dark:bg-emerald-900/40" /> On time</span>
+        <span class="flex items-center gap-1.5"><span class="h-3 w-3 rounded bg-red-100 dark:bg-red-900/40" /> Late</span>
+        <span class="flex items-center gap-1.5"><span class="h-3 w-3 rounded bg-amber-100 dark:bg-amber-900/40" /> In progress</span>
+        <span class="flex items-center gap-1.5"><span class="h-3 w-3 rounded bg-muted/30" /> No record</span>
+      </div>
+    </CardContent>
+  </Card>
 
   <Card class="mt-6">
     <CardHeader>

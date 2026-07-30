@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { h, ref, computed, onMounted } from 'vue'
 import type { ColumnDef } from '@tanstack/vue-table'
-import { Circle, Trash2, Pencil } from 'lucide-vue-next'
+import { Circle, Trash2, Pencil, ClipboardList, CheckCircle2, Loader, AlertCircle } from 'lucide-vue-next'
 import { api } from '@/lib/api'
 import { useToast } from '@/composables/useToast'
 import PageHeader from '@/components/layout/PageHeader.vue'
@@ -27,6 +27,22 @@ interface Task {
   viewable: string
   author: string
   assignee: string
+}
+
+function dueDaysLeft(end: string): number | null {
+  if (!end) return null
+  const diff = new Date(end).getTime() - Date.now()
+  return Math.ceil(diff / (1000 * 60 * 60 * 24))
+}
+
+function dueBadge(end: string, progress: string): { label: string; variant: 'destructive' | 'warning' | 'success' | 'secondary' } | null {
+  if (progress === 'Done') return null
+  const days = dueDaysLeft(end)
+  if (days === null) return null
+  if (days < 0) return { label: `${Math.abs(days)}d overdue`, variant: 'destructive' }
+  if (days === 0) return { label: 'Due today', variant: 'warning' }
+  if (days <= 3) return { label: `${days}d left`, variant: 'warning' }
+  return { label: `${days}d left`, variant: 'secondary' }
 }
 
 const toast = useToast()
@@ -170,7 +186,17 @@ const columns: ColumnDef<Task, any>[] = [
     cell: ({ row }) => h(Badge, { variant: progressVariant[row.original.progress as TaskProgress] }, () => row.original.progress),
   },
   { accessorKey: 'start', header: 'Start' },
-  { accessorKey: 'end', header: 'End' },
+  {
+    accessorKey: 'end',
+    header: 'Due',
+    cell: ({ row }) => {
+      const badge = dueBadge(row.original.end, row.original.progress)
+      return h('div', { class: 'flex flex-col gap-0.5' }, [
+        h('span', { class: 'text-xs text-muted-foreground' }, row.original.end || '-'),
+        badge ? h(Badge, { variant: badge.variant, class: 'text-[10px] w-fit px-1.5 py-0' }, () => badge.label) : null,
+      ])
+    },
+  },
   { accessorKey: 'viewable', header: 'Viewable', cell: ({ row }) => h('span', { class: 'text-[#2563EB]' }, row.original.viewable) },
   { accessorKey: 'author', header: 'Author', cell: ({ row }) => row.original.author || '-' },
   {
@@ -193,6 +219,46 @@ onMounted(async () => {
   <div class="flex items-start justify-between">
     <PageHeader title="Tasks" description="List of all tasks" />
     <Button @click="openCreate">Add task</Button>
+  </div>
+
+  <!-- Stats row -->
+  <div class="grid gap-3 sm:grid-cols-4 mb-2">
+    <Card class="border-0 bg-gradient-to-br from-[#2563EB] to-[#4F46E5] text-white shadow-md">
+      <CardContent class="flex items-center gap-3 pt-4 pb-4">
+        <ClipboardList class="h-7 w-7 text-white/60 shrink-0" />
+        <div>
+          <p class="text-2xl font-bold">{{ tasks.length }}</p>
+          <p class="text-xs text-white/70">Total Tasks</p>
+        </div>
+      </CardContent>
+    </Card>
+    <Card class="border-0 bg-gradient-to-br from-rose-500 to-red-600 text-white shadow-md">
+      <CardContent class="flex items-center gap-3 pt-4 pb-4">
+        <AlertCircle class="h-7 w-7 text-white/60 shrink-0" />
+        <div>
+          <p class="text-2xl font-bold">{{ tasks.filter(t => t.progress === 'Todo').length }}</p>
+          <p class="text-xs text-white/70">Todo</p>
+        </div>
+      </CardContent>
+    </Card>
+    <Card class="border-0 bg-gradient-to-br from-amber-500 to-orange-500 text-white shadow-md">
+      <CardContent class="flex items-center gap-3 pt-4 pb-4">
+        <Loader class="h-7 w-7 text-white/60 shrink-0" />
+        <div>
+          <p class="text-2xl font-bold">{{ tasks.filter(t => t.progress === 'Doing').length }}</p>
+          <p class="text-xs text-white/70">In Progress</p>
+        </div>
+      </CardContent>
+    </Card>
+    <Card class="border-0 bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-md">
+      <CardContent class="flex items-center gap-3 pt-4 pb-4">
+        <CheckCircle2 class="h-7 w-7 text-white/60 shrink-0" />
+        <div>
+          <p class="text-2xl font-bold">{{ tasks.filter(t => t.progress === 'Done').length }}</p>
+          <p class="text-xs text-white/70">Completed</p>
+        </div>
+      </CardContent>
+    </Card>
   </div>
 
   <div class="grid gap-4 lg:grid-cols-[220px_1fr]">

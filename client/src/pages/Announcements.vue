@@ -26,6 +26,25 @@ interface Announcement {
 const auth = useAuthStore()
 const toast = useToast()
 const announcements = ref<Announcement[]>([])
+const readIds = ref<Set<string>>(new Set(JSON.parse(localStorage.getItem('ann_read') || '[]')))
+const typeTab = ref<'all' | AnnouncementType>('all')
+
+const typeTabOptions: { value: 'all' | AnnouncementType; label: string }[] = [
+  { value: 'all', label: 'All' },
+  { value: 'general', label: 'General' },
+  { value: 'kpi', label: 'KPI' },
+  { value: 'holiday', label: 'Holiday' },
+  { value: 'urgent', label: 'Urgent' },
+]
+
+const filteredAnnouncements = computed(() =>
+  announcements.value.filter(a => typeTab.value === 'all' || a.type === typeTab.value)
+)
+
+function markRead(id: string) {
+  readIds.value.add(id)
+  localStorage.setItem('ann_read', JSON.stringify([...readIds.value]))
+}
 
 const createOpen = ref(false)
 const saving = ref(false)
@@ -92,8 +111,27 @@ onMounted(load)
     </Button>
   </div>
 
+  <!-- Type filter tabs -->
+  <div class="flex items-center gap-1 border-b border-border mb-4">
+    <button
+      v-for="opt in typeTabOptions"
+      :key="opt.value"
+      type="button"
+      class="px-3 py-2 text-sm font-medium transition-colors"
+      :class="typeTab === opt.value ? 'border-b-2 border-[#2563EB] text-[#2563EB]' : 'text-muted-foreground hover:text-foreground'"
+      @click="typeTab = opt.value"
+    >
+      {{ opt.label }}
+      <span v-if="opt.value !== 'all'" class="ml-1 text-[10px] text-muted-foreground">
+        ({{ announcements.filter(a => a.type === opt.value).length }})
+      </span>
+    </button>
+  </div>
+
   <div class="space-y-4">
-    <Card v-for="a in announcements" :key="a.id">
+    <Card v-for="a in filteredAnnouncements" :key="a.id"
+      :class="['transition-all', !readIds.has(a.id) ? 'border-l-4 border-l-[#2563EB]' : '']"
+      @click="markRead(a.id)">
       <CardHeader class="flex-row items-start justify-between space-y-0 pb-2">
         <div class="flex items-start gap-3">
           <div :class="['flex h-10 w-10 shrink-0 items-center justify-center rounded-full', announcementTypeMeta[a.type].iconWrapClass]">
@@ -101,6 +139,7 @@ onMounted(load)
           </div>
           <div>
             <div class="flex items-center gap-1.5">
+              <span v-if="!readIds.has(a.id)" class="h-2 w-2 rounded-full bg-[#2563EB] shrink-0" />
               <CardTitle class="text-base text-foreground">{{ a.title }}</CardTitle>
               <Pin v-if="a.pinned" class="h-3.5 w-3.5 text-muted-foreground" />
             </div>
@@ -126,7 +165,7 @@ onMounted(load)
         <p class="text-sm text-muted-foreground">{{ a.body }}</p>
       </CardContent>
     </Card>
-    <p v-if="!announcements.length" class="text-sm text-muted-foreground">No announcements</p>
+    <p v-if="!filteredAnnouncements.length" class="text-sm text-muted-foreground">No announcements</p>
   </div>
 
   <Dialog v-model:open="createOpen">
