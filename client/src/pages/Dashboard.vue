@@ -225,7 +225,7 @@ onUnmounted(() => clearInterval(clockTimer))
       <div class="flex items-center gap-2">
         <div class="flex items-center gap-2 rounded-xl border border-border bg-card px-4 py-2 shadow-sm">
           <Clock class="h-4 w-4 text-[#2563EB]" />
-          <span class="font-mono text-sm font-semibold tabular-nums text-foreground">{{ clockTime }}</span>
+          <span class="text-sm font-semibold tabular-nums text-foreground">{{ clockTime }}</span>
         </div>
         <Button size="sm" @click="router.push('/clock')">
           <Timer class="h-3.5 w-3.5" />
@@ -375,8 +375,8 @@ onUnmounted(() => clearInterval(clockTimer))
       </Card>
     </div>
 
-    <!-- Activity + Leaderboard + User Status -->
-    <div v-if="summary" class="grid gap-4 lg:grid-cols-3">
+    <!-- Activity + User Status -->
+    <div v-if="summary" class="grid gap-4 lg:grid-cols-2">
       <!-- Recent Activity Feed -->
       <Card class="shadow-sm">
         <CardHeader class="px-5 pt-5 pb-3">
@@ -400,37 +400,6 @@ onUnmounted(() => clearInterval(clockTimer))
             </div>
             <Badge :variant="badgeVariant(item.badgeColor)" class="shrink-0 px-1.5 py-0 text-[10px]">{{ item.badge }}</Badge>
           </div>
-        </CardContent>
-      </Card>
-
-      <!-- KPI Leaderboard -->
-      <Card class="shadow-sm">
-        <CardHeader class="px-5 pt-5 pb-3">
-          <CardTitle class="flex items-center gap-2 text-base text-foreground">
-            <Trophy class="h-4 w-4 text-amber-500" />
-            KPI Leaderboard
-          </CardTitle>
-        </CardHeader>
-        <CardContent class="space-y-3 px-5 pb-5">
-          <div v-for="(entry, i) in summary.leaderboard" :key="entry.name" class="space-y-1.5">
-            <div class="flex items-center justify-between text-sm">
-              <div class="flex items-center gap-2">
-                <span :class="['flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-bold',
-                  i === 0 ? 'bg-amber-100 text-amber-600' : i === 1 ? 'bg-zinc-100 text-zinc-600' : i === 2 ? 'bg-orange-100 text-orange-600' : 'bg-muted text-muted-foreground']">
-                  {{ i + 1 }}
-                </span>
-                <span class="max-w-[90px] truncate font-medium text-foreground">{{ entry.name }}</span>
-              </div>
-              <span class="font-bold tabular-nums text-[#2563EB]">{{ entry.points }} pts</span>
-            </div>
-            <div class="h-1.5 w-full overflow-hidden rounded-full bg-muted">
-              <div
-                class="h-full rounded-full bg-gradient-to-r from-[#2563EB] to-[#4F46E5] transition-all duration-700"
-                :style="{ width: `${(entry.points / maxLeaderPoints) * 100}%` }"
-              />
-            </div>
-          </div>
-          <p v-if="!summary.leaderboard.length" class="text-xs text-muted-foreground">No KPI data yet</p>
         </CardContent>
       </Card>
 
