@@ -64,8 +64,8 @@ npm run dev
 ### 🔑 Default Login
 
 ```
-Username : chanvandaneb
-Password : dgsystem123
+Username : vanda
+Password : 1234
 ```
 
 ---

@@ -148,8 +148,8 @@ const userCount = db.prepare('SELECT COUNT(*) as count FROM users').get() as { c
 if (userCount.count === 0) {
   db.prepare('INSERT INTO users (id, username, passwordHash, name, role) VALUES (?, ?, ?, ?, ?)').run(
     '1',
-    'user',
-    bcrypt.hashSync('123456', 10),
+    'vanda',
+    bcrypt.hashSync('1234', 10),
     'Alex Morgan',
     'employee',
   )
