@@ -72,7 +72,7 @@ onMounted(async () => {
   <PageHeader title="Attendance Breaks" description="Schedule and manage employee breaks efficiently" />
 
   <Card>
-    <CardContent class="pt-6">
+    <CardContent class="px-5 pt-5 pb-5">
       <div class="mb-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <Input v-model="dateFrom" type="date" />
         <Input v-model="dateTo" type="date" />

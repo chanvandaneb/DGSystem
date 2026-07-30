@@ -173,6 +173,7 @@ onMounted(async () => {
 </script>
 
 <template>
+  <div class="space-y-6">
   <div class="flex items-start justify-between">
     <PageHeader title="Attendances" description="Smart attendance management" />
     <Button @click="exportCsv">
@@ -181,66 +182,52 @@ onMounted(async () => {
     </Button>
   </div>
 
+  <!-- Stat cards -->
   <div class="grid gap-4 sm:grid-cols-3">
-    <Card class="border-0 bg-[#2563EB] text-white">
-      <CardHeader class="pb-1">
-        <CardTitle class="flex items-center gap-2 text-xs uppercase tracking-wider text-white/80">
-          <UserCheck class="h-3.5 w-3.5" />
-          Present (latest day)
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <p class="text-2xl font-bold">{{ summary.present }}</p>
-        <p class="mt-1 text-xs text-white/70">{{ latestDate || '-' }}</p>
+    <Card class="border-0 bg-gradient-to-br from-[#2563EB] to-[#4F46E5] text-white shadow-md">
+      <CardContent class="px-5 py-5">
+        <p class="text-xs uppercase tracking-wider text-white/70 flex items-center gap-1.5"><UserCheck class="h-3.5 w-3.5" /> Present (latest day)</p>
+        <p class="mt-2 text-3xl font-bold">{{ summary.present }}</p>
+        <p class="mt-0.5 text-xs text-white/70">{{ latestDate || '-' }}</p>
       </CardContent>
     </Card>
-    <Card class="border-0 bg-gradient-to-br from-orange-500 to-red-500 text-white">
-      <CardHeader class="pb-1">
-        <CardTitle class="flex items-center gap-2 text-xs uppercase tracking-wider text-white/80">
-          <AlertTriangle class="h-3.5 w-3.5" />
-          Late (latest day)
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <p class="text-2xl font-bold">{{ summary.late }}</p>
-        <p class="mt-1 text-xs text-white/70">After 08:00 check-in</p>
+    <Card class="border-0 bg-gradient-to-br from-orange-500 to-red-500 text-white shadow-md">
+      <CardContent class="px-5 py-5">
+        <p class="text-xs uppercase tracking-wider text-white/70 flex items-center gap-1.5"><AlertTriangle class="h-3.5 w-3.5" /> Late (latest day)</p>
+        <p class="mt-2 text-3xl font-bold">{{ summary.late }}</p>
+        <p class="mt-0.5 text-xs text-white/70">After 08:00 check-in</p>
       </CardContent>
     </Card>
-    <Card class="border-0 bg-gradient-to-br from-emerald-500 to-teal-600 text-white">
-      <CardHeader class="pb-1">
-        <CardTitle class="flex items-center gap-2 text-xs uppercase tracking-wider text-white/80">
-          <Timer class="h-3.5 w-3.5" />
-          Avg working hours
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <p class="text-2xl font-bold">{{ summary.avgHours.toFixed(1) }}h</p>
-        <p class="mt-1 text-xs text-white/70">Across all records</p>
+    <Card class="border-0 bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-md">
+      <CardContent class="px-5 py-5">
+        <p class="text-xs uppercase tracking-wider text-white/70 flex items-center gap-1.5"><Timer class="h-3.5 w-3.5" /> Avg working hours</p>
+        <p class="mt-2 text-3xl font-bold">{{ summary.avgHours.toFixed(1) }}h</p>
+        <p class="mt-0.5 text-xs text-white/70">Across all records</p>
       </CardContent>
     </Card>
   </div>
 
   <!-- Monthly Calendar Heatmap -->
-  <Card class="mt-6 shadow-sm">
-    <CardHeader class="flex-row items-center justify-between space-y-0 pb-3">
-      <CardTitle class="text-base text-foreground flex items-center gap-2">
+  <Card class="shadow-sm">
+    <CardHeader class="flex-row items-center justify-between space-y-0 px-5 pt-5 pb-3">
+      <CardTitle class="flex items-center gap-2 text-base text-foreground">
         <Clock class="h-4 w-4 text-[#2563EB]" />
         Attendance Calendar
       </CardTitle>
       <div class="flex items-center gap-2">
-        <button type="button" class="rounded-md p-1 hover:bg-accent transition-colors" @click="prevMonth">
+        <button type="button" class="rounded-md p-1 transition-colors hover:bg-accent" @click="prevMonth">
           <ChevronLeft class="h-4 w-4 text-muted-foreground" />
         </button>
-        <span class="text-sm font-medium text-foreground min-w-[130px] text-center">{{ calendarLabel(calendarMonth) }}</span>
-        <button type="button" class="rounded-md p-1 hover:bg-accent transition-colors" @click="nextMonth">
+        <span class="min-w-[130px] text-center text-sm font-medium text-foreground">{{ calendarLabel(calendarMonth) }}</span>
+        <button type="button" class="rounded-md p-1 transition-colors hover:bg-accent" @click="nextMonth">
           <ChevronRight class="h-4 w-4 text-muted-foreground" />
         </button>
       </div>
     </CardHeader>
-    <CardContent>
-      <div class="grid grid-cols-7 gap-1.5 mb-2">
+    <CardContent class="px-5 pb-5">
+      <div class="mb-2 grid grid-cols-7 gap-1.5">
         <div v-for="d in ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']" :key="d"
-          class="text-center text-[11px] font-medium text-muted-foreground py-1">{{ d }}</div>
+          class="py-1 text-center text-[11px] font-medium text-muted-foreground">{{ d }}</div>
       </div>
       <div class="grid grid-cols-7 gap-1.5">
         <div
@@ -252,7 +239,7 @@ onMounted(async () => {
           {{ cell.day || '' }}
         </div>
       </div>
-      <div class="mt-3 flex items-center gap-4 text-[11px] text-muted-foreground">
+      <div class="mt-4 flex flex-wrap items-center gap-4 border-t border-border pt-3 text-[11px] text-muted-foreground">
         <span class="flex items-center gap-1.5"><span class="h-3 w-3 rounded bg-emerald-100 dark:bg-emerald-900/40" /> On time</span>
         <span class="flex items-center gap-1.5"><span class="h-3 w-3 rounded bg-red-100 dark:bg-red-900/40" /> Late</span>
         <span class="flex items-center gap-1.5"><span class="h-3 w-3 rounded bg-amber-100 dark:bg-amber-900/40" /> In progress</span>
@@ -261,15 +248,15 @@ onMounted(async () => {
     </CardContent>
   </Card>
 
-  <Card class="mt-6">
-    <CardHeader>
+  <Card class="shadow-sm">
+    <CardHeader class="px-5 pt-5 pb-3">
       <CardTitle class="flex items-center gap-2 text-base text-foreground">
-        <Clock class="h-4 w-4 text-muted-foreground" />
+        <Clock class="h-4 w-4 text-[#2563EB]" />
         Records
       </CardTitle>
     </CardHeader>
-    <CardContent>
-      <div class="mb-4 flex flex-wrap items-center gap-3">
+    <CardContent class="px-5 pb-5">
+      <div class="mb-4 flex flex-wrap items-center gap-4">
         <Input v-model="dateFrom" type="date" placeholder="From date" class="max-w-[160px]" />
         <Input v-model="dateTo" type="date" placeholder="To date" class="max-w-[160px]" />
         <Select v-model="statusFilter">
@@ -287,4 +274,5 @@ onMounted(async () => {
       <DataTable :columns="columns" :data="filtered" search-placeholder="Search records..." />
     </CardContent>
   </Card>
+  </div>
 </template>

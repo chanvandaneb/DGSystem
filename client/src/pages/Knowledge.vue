@@ -51,7 +51,7 @@ onMounted(async () => {
   <PageHeader title="Knowledges" description="List of all knowledges" />
 
   <Card>
-    <CardContent class="pt-6">
+    <CardContent class="px-5 pt-5 pb-5">
       <div class="mb-4 flex flex-wrap items-center gap-3">
         <div class="flex items-center gap-1 rounded-md border border-input p-1">
           <Button :variant="viewMode === 'grid' ? 'secondary' : 'ghost'" size="icon" class="h-7 w-7" @click="viewMode = 'grid'">

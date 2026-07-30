@@ -100,7 +100,7 @@ onMounted(async () => {
   </div>
 
   <Card>
-    <CardContent class="pt-6">
+    <CardContent class="px-5 pt-5 pb-5">
       <DataTable :columns="columns" :data="rules" search-placeholder="Search rules..." />
     </CardContent>
   </Card>

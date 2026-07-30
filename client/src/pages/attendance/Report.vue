@@ -58,7 +58,7 @@ onMounted(async () => {
   </div>
 
   <Card>
-    <CardContent class="pt-6">
+    <CardContent class="px-5 pt-5 pb-5">
       <div class="mb-4 flex flex-wrap gap-3">
         <Input v-model="month" type="month" class="max-w-[180px]" />
         <Input v-model="employeeFilter" placeholder="Employee name" class="max-w-xs" />

@@ -103,6 +103,7 @@ onMounted(load)
 </script>
 
 <template>
+  <div class="space-y-6">
   <div class="flex items-start justify-between">
     <PageHeader title="Announcements" description="Everything the team needs to know, in one place." />
     <Button v-if="auth.isAdmin" @click="openCreate">
@@ -112,7 +113,7 @@ onMounted(load)
   </div>
 
   <!-- Type filter tabs -->
-  <div class="flex items-center gap-1 border-b border-border mb-4">
+  <div class="flex items-center gap-1 border-b border-border">
     <button
       v-for="opt in typeTabOptions"
       :key="opt.value"
@@ -129,10 +130,10 @@ onMounted(load)
   </div>
 
   <div class="space-y-4">
-    <Card v-for="a in filteredAnnouncements" :key="a.id"
+    <Card v-for="a in filteredAnnouncements" :key="a.id" class="shadow-sm"
       :class="['transition-all', !readIds.has(a.id) ? 'border-l-4 border-l-[#2563EB]' : '']"
       @click="markRead(a.id)">
-      <CardHeader class="flex-row items-start justify-between space-y-0 pb-2">
+      <CardHeader class="flex-row items-start justify-between space-y-0 px-5 pt-5 pb-2">
         <div class="flex items-start gap-3">
           <div :class="['flex h-10 w-10 shrink-0 items-center justify-center rounded-full', announcementTypeMeta[a.type].iconWrapClass]">
             <component :is="announcementTypeMeta[a.type].icon" class="h-5 w-5" />
@@ -161,11 +162,12 @@ onMounted(load)
           </template>
         </div>
       </CardHeader>
-      <CardContent>
+      <CardContent class="px-5 pb-5">
         <p class="text-sm text-muted-foreground">{{ a.body }}</p>
       </CardContent>
     </Card>
     <p v-if="!filteredAnnouncements.length" class="text-sm text-muted-foreground">No announcements</p>
+  </div>
   </div>
 
   <Dialog v-model:open="createOpen">

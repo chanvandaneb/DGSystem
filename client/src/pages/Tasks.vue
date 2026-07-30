@@ -216,16 +216,17 @@ onMounted(async () => {
 </script>
 
 <template>
+  <div class="space-y-6">
   <div class="flex items-start justify-between">
     <PageHeader title="Tasks" description="List of all tasks" />
     <Button @click="openCreate">Add task</Button>
   </div>
 
   <!-- Stats row -->
-  <div class="grid gap-3 sm:grid-cols-4 mb-2">
+  <div class="grid gap-4 sm:grid-cols-4">
     <Card class="border-0 bg-gradient-to-br from-[#2563EB] to-[#4F46E5] text-white shadow-md">
-      <CardContent class="flex items-center gap-3 pt-4 pb-4">
-        <ClipboardList class="h-7 w-7 text-white/60 shrink-0" />
+      <CardContent class="flex items-center gap-3 px-5 py-5">
+        <ClipboardList class="h-7 w-7 shrink-0 text-white/60" />
         <div>
           <p class="text-2xl font-bold">{{ tasks.length }}</p>
           <p class="text-xs text-white/70">Total Tasks</p>
@@ -233,8 +234,8 @@ onMounted(async () => {
       </CardContent>
     </Card>
     <Card class="border-0 bg-gradient-to-br from-rose-500 to-red-600 text-white shadow-md">
-      <CardContent class="flex items-center gap-3 pt-4 pb-4">
-        <AlertCircle class="h-7 w-7 text-white/60 shrink-0" />
+      <CardContent class="flex items-center gap-3 px-5 py-5">
+        <AlertCircle class="h-7 w-7 shrink-0 text-white/60" />
         <div>
           <p class="text-2xl font-bold">{{ tasks.filter(t => t.progress === 'Todo').length }}</p>
           <p class="text-xs text-white/70">Todo</p>
@@ -242,8 +243,8 @@ onMounted(async () => {
       </CardContent>
     </Card>
     <Card class="border-0 bg-gradient-to-br from-amber-500 to-orange-500 text-white shadow-md">
-      <CardContent class="flex items-center gap-3 pt-4 pb-4">
-        <Loader class="h-7 w-7 text-white/60 shrink-0" />
+      <CardContent class="flex items-center gap-3 px-5 py-5">
+        <Loader class="h-7 w-7 shrink-0 text-white/60" />
         <div>
           <p class="text-2xl font-bold">{{ tasks.filter(t => t.progress === 'Doing').length }}</p>
           <p class="text-xs text-white/70">In Progress</p>
@@ -251,8 +252,8 @@ onMounted(async () => {
       </CardContent>
     </Card>
     <Card class="border-0 bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-md">
-      <CardContent class="flex items-center gap-3 pt-4 pb-4">
-        <CheckCircle2 class="h-7 w-7 text-white/60 shrink-0" />
+      <CardContent class="flex items-center gap-3 px-5 py-5">
+        <CheckCircle2 class="h-7 w-7 shrink-0 text-white/60" />
         <div>
           <p class="text-2xl font-bold">{{ tasks.filter(t => t.progress === 'Done').length }}</p>
           <p class="text-xs text-white/70">Completed</p>
@@ -264,7 +265,7 @@ onMounted(async () => {
   <div class="grid gap-4 lg:grid-cols-[220px_1fr]">
     <div class="space-y-4">
       <Card>
-        <CardContent class="space-y-2 pt-6">
+        <CardContent class="space-y-2 px-5 pt-5 pb-5">
           <p class="text-sm font-semibold">Priority</p>
           <button
             v-for="p in priorities"
@@ -281,7 +282,7 @@ onMounted(async () => {
       </Card>
 
       <Card>
-        <CardContent class="space-y-2 pt-6">
+        <CardContent class="space-y-2 px-5 pt-5 pb-5">
           <p class="text-sm font-semibold">Progress</p>
           <button
             v-for="p in progresses"
@@ -299,7 +300,7 @@ onMounted(async () => {
     </div>
 
     <Card>
-      <CardContent class="pt-6">
+      <CardContent class="px-5 pt-5 pb-5">
         <div class="mb-4 flex items-center gap-1 border-b border-border">
           <button
             v-for="tab in [['table', 'Table'], ['kanban', 'Kanban'], ['gantt', 'Ganttchart'], ['calendar', 'Calendar']] as const"
@@ -345,4 +346,5 @@ onMounted(async () => {
   </div>
 
   <AddTaskDialog v-model:open="addOpen" :task="editing" @create="createTask" @update="updateTask" />
+  </div>
 </template>

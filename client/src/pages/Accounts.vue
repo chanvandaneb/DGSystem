@@ -146,12 +146,13 @@ onMounted(async () => {
 </script>
 
 <template>
+  <div class="space-y-6">
   <PageHeader title="Accounts" description="Manage all system accounts" />
 
   <div class="grid gap-4 lg:grid-cols-[1fr_360px]">
     <Card>
-      <CardContent class="pt-6">
-        <div class="mb-4 flex flex-wrap items-center gap-3">
+      <CardContent class="px-5 pt-5 pb-5">
+        <div class="mb-4 flex flex-wrap items-center gap-4">
           <Input v-model="search" placeholder="Search by..." class="max-w-xs" />
           <Button variant="outline" @click="clearFilters">Clear</Button>
           <div v-if="selectedIds.length" class="ml-auto flex items-center gap-2">
@@ -175,7 +176,7 @@ onMounted(async () => {
     </Card>
 
     <Card class="h-fit">
-      <CardContent class="pt-6">
+      <CardContent class="px-5 pt-5 pb-5">
         <div class="mb-4 flex gap-1 rounded-md bg-muted p-1">
           <button
             type="button"
@@ -269,5 +270,6 @@ onMounted(async () => {
         </div>
       </CardContent>
     </Card>
+  </div>
   </div>
 </template>

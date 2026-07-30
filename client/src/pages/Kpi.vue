@@ -139,16 +139,17 @@ onMounted(async () => {
 </script>
 
 <template>
+  <div class="space-y-6">
   <div class="flex items-start justify-between">
     <PageHeader title="KPI" :description="auth.isAdmin ? 'List of all kpi' : 'Your kpi entries'" />
     <Button v-if="auth.isAdmin" @click="router.push('/kpi/rule')">Add rule</Button>
   </div>
 
   <!-- Leaderboard -->
-  <div v-if="leaderboard.length" class="grid gap-4 sm:grid-cols-3 mb-2">
+  <div v-if="leaderboard.length" class="grid gap-4 sm:grid-cols-3">
     <Card v-for="(entry, i) in leaderboard.slice(0, 3)" :key="entry.name"
       :class="['shadow-sm border', i === 0 ? 'border-amber-300 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-950/20' : '']">
-      <CardContent class="pt-4 pb-4">
+      <CardContent class="px-5 py-5">
         <div class="flex items-center gap-3">
           <div :class="['flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-bold', medalClass(i)]">
             {{ i === 0 ? '🥇' : i === 1 ? '🥈' : '🥉' }}
@@ -170,13 +171,13 @@ onMounted(async () => {
     </Card>
   </div>
 
-  <Card v-if="leaderboard.length > 3" class="mb-4 shadow-sm">
-    <CardHeader class="pb-2">
-      <CardTitle class="text-base flex items-center gap-2">
+  <Card v-if="leaderboard.length > 3" class="shadow-sm">
+    <CardHeader class="px-5 pt-5 pb-3">
+      <CardTitle class="flex items-center gap-2 text-base">
         <Trophy class="h-4 w-4 text-amber-500" /> Full Leaderboard
       </CardTitle>
     </CardHeader>
-    <CardContent class="space-y-2">
+    <CardContent class="space-y-2 px-5 pb-5">
       <div v-for="(entry, i) in leaderboard" :key="entry.name" class="flex items-center gap-3">
         <span :class="['flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold', medalClass(i)]">{{ i + 1 }}</span>
         <span class="flex-1 text-sm font-medium truncate">{{ entry.name }}</span>
@@ -189,8 +190,8 @@ onMounted(async () => {
   </Card>
 
   <Card>
-    <CardContent class="pt-6">
-      <div class="mb-4 flex flex-wrap items-center gap-3">
+    <CardContent class="px-5 pt-5 pb-5">
+      <div class="mb-4 flex flex-wrap items-center gap-4">
         <Input v-model="month" type="month" class="max-w-[160px]" />
         <Select v-if="auth.isAdmin" v-model="userFilter">
           <SelectTrigger class="w-44" placeholder="User" />
@@ -205,4 +206,5 @@ onMounted(async () => {
       <DataTable :columns="columns" :data="filtered" search-placeholder="Search kpi..." />
     </CardContent>
   </Card>
+  </div>
 </template>
