@@ -654,52 +654,73 @@ footer{border-top:1px solid #f3f4f6;background:#fafafa}
     <!-- IA -->
     <p style="font-size:.875rem;font-weight:600;color:#374151;margin:32px 0 14px">Information Architecture</p>
     <div style="border:1px solid #f3f4f6;border-radius:16px;padding:24px;overflow-x:auto">
-      <svg viewBox="0 0 960 270" xmlns="http://www.w3.org/2000/svg" style="min-width:640px;width:100%">
-        <!-- Tree connector lines -->
-        <line x1="460" y1="60" x2="460" y2="90" stroke="#e5e7eb" stroke-width="1.5"/>
-        <line x1="120" y1="90" x2="830" y2="90" stroke="#e5e7eb" stroke-width="1.5"/>
-        <line x1="120" y1="90" x2="120" y2="120" stroke="#e5e7eb" stroke-width="1.5"/>
-        <line x1="460" y1="90" x2="460" y2="120" stroke="#e5e7eb" stroke-width="1.5"/>
-        <line x1="830" y1="90" x2="830" y2="120" stroke="#e5e7eb" stroke-width="1.5"/>
-        <!-- Overview → Dashboard -->
-        <line x1="120" y1="156" x2="120" y2="210" stroke="#e5e7eb" stroke-width="1.5"/>
-        <!-- Workforce → 4 children -->
-        <line x1="460" y1="156" x2="460" y2="183" stroke="#e5e7eb" stroke-width="1.5"/>
-        <line x1="307" y1="183" x2="598" y2="183" stroke="#e5e7eb" stroke-width="1.5"/>
-        <line x1="307" y1="183" x2="307" y2="210" stroke="#e5e7eb" stroke-width="1.5"/>
-        <line x1="407" y1="183" x2="407" y2="210" stroke="#e5e7eb" stroke-width="1.5"/>
-        <line x1="500" y1="183" x2="500" y2="210" stroke="#e5e7eb" stroke-width="1.5"/>
-        <line x1="598" y1="183" x2="598" y2="210" stroke="#e5e7eb" stroke-width="1.5"/>
-        <!-- Resources → 2 children -->
-        <line x1="830" y1="156" x2="830" y2="183" stroke="#e5e7eb" stroke-width="1.5"/>
-        <line x1="780" y1="183" x2="880" y2="183" stroke="#e5e7eb" stroke-width="1.5"/>
-        <line x1="780" y1="183" x2="780" y2="210" stroke="#e5e7eb" stroke-width="1.5"/>
-        <line x1="880" y1="183" x2="880" y2="210" stroke="#e5e7eb" stroke-width="1.5"/>
-        <!-- Root -->
-        <rect x="380" y="20" width="160" height="40" rx="20" fill="#2563EB"/>
-        <text x="460" y="45" text-anchor="middle" font-size="13" font-weight="700" fill="white" font-family="system-ui,sans-serif">DGSystem</text>
-        <!-- L2 nodes -->
-        <rect x="50" y="120" width="140" height="36" rx="8" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1.5"/>
-        <text x="120" y="143" text-anchor="middle" font-size="11" font-weight="600" fill="#1e40af" font-family="system-ui,sans-serif">Overview</text>
-        <rect x="350" y="120" width="220" height="36" rx="8" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1.5"/>
-        <text x="460" y="143" text-anchor="middle" font-size="11" font-weight="600" fill="#1e40af" font-family="system-ui,sans-serif">Workforce</text>
-        <rect x="750" y="120" width="160" height="36" rx="8" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1.5"/>
-        <text x="830" y="143" text-anchor="middle" font-size="11" font-weight="600" fill="#1e40af" font-family="system-ui,sans-serif">Resources</text>
-        <!-- L3 nodes -->
-        <rect x="60" y="210" width="120" height="36" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
-        <text x="120" y="233" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui,sans-serif">📊 Dashboard</text>
-        <rect x="248" y="210" width="118" height="36" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
-        <text x="307" y="233" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui,sans-serif">🕐 Attendance</text>
-        <rect x="365" y="210" width="84" height="36" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
-        <text x="407" y="233" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui,sans-serif">🏅 KPI</text>
-        <rect x="458" y="210" width="84" height="36" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
-        <text x="500" y="233" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui,sans-serif">✅ Tasks</text>
-        <rect x="540" y="210" width="116" height="36" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
-        <text x="598" y="233" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui,sans-serif">👤 Accounts</text>
-        <rect x="724" y="210" width="112" height="36" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
-        <text x="780" y="233" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui,sans-serif">📚 Knowledge</text>
-        <rect x="826" y="210" width="108" height="36" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
-        <text x="880" y="233" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui,sans-serif">🔖 Bookmarks</text>
+      <svg viewBox="0 0 1220 280" xmlns="http://www.w3.org/2000/svg" style="min-width:720px;width:100%">
+        <!-- Root stem -->
+        <line x1="600" y1="60" x2="600" y2="90" stroke="#e5e7eb" stroke-width="1.5"/>
+        <!-- L2 backbone -->
+        <line x1="210" y1="90" x2="1070" y2="90" stroke="#e5e7eb" stroke-width="1.5"/>
+        <line x1="210" y1="90" x2="210" y2="110" stroke="#e5e7eb" stroke-width="1.5"/>
+        <line x1="630" y1="90" x2="630" y2="110" stroke="#e5e7eb" stroke-width="1.5"/>
+        <line x1="1070" y1="90" x2="1070" y2="110" stroke="#e5e7eb" stroke-width="1.5"/>
+        <!-- Overview stem + child backbone -->
+        <line x1="210" y1="146" x2="210" y2="183" stroke="#e5e7eb" stroke-width="1.5"/>
+        <line x1="155" y1="183" x2="285" y2="183" stroke="#e5e7eb" stroke-width="1.5"/>
+        <line x1="155" y1="183" x2="155" y2="200" stroke="#e5e7eb" stroke-width="1.5"/>
+        <line x1="285" y1="183" x2="285" y2="200" stroke="#e5e7eb" stroke-width="1.5"/>
+        <!-- Workforce stem + child backbone -->
+        <line x1="630" y1="146" x2="630" y2="183" stroke="#e5e7eb" stroke-width="1.5"/>
+        <line x1="420" y1="183" x2="892" y2="183" stroke="#e5e7eb" stroke-width="1.5"/>
+        <line x1="420" y1="183" x2="420" y2="200" stroke="#e5e7eb" stroke-width="1.5"/>
+        <line x1="565" y1="183" x2="565" y2="200" stroke="#e5e7eb" stroke-width="1.5"/>
+        <line x1="672" y1="183" x2="672" y2="200" stroke="#e5e7eb" stroke-width="1.5"/>
+        <line x1="770" y1="183" x2="770" y2="200" stroke="#e5e7eb" stroke-width="1.5"/>
+        <line x1="892" y1="183" x2="892" y2="200" stroke="#e5e7eb" stroke-width="1.5"/>
+        <!-- Resources stem + child backbone -->
+        <line x1="1070" y1="146" x2="1070" y2="183" stroke="#e5e7eb" stroke-width="1.5"/>
+        <line x1="1022" y1="183" x2="1152" y2="183" stroke="#e5e7eb" stroke-width="1.5"/>
+        <line x1="1022" y1="183" x2="1022" y2="200" stroke="#e5e7eb" stroke-width="1.5"/>
+        <line x1="1152" y1="183" x2="1152" y2="200" stroke="#e5e7eb" stroke-width="1.5"/>
+        <!-- Root node -->
+        <rect x="520" y="20" width="160" height="40" rx="20" fill="#2563EB"/>
+        <text x="600" y="45" text-anchor="middle" font-size="13" font-weight="700" fill="white" font-family="system-ui,sans-serif">DGSystem</text>
+        <!-- L2: category nodes -->
+        <rect x="130" y="110" width="160" height="36" rx="8" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1.5"/>
+        <text x="210" y="133" text-anchor="middle" font-size="11" font-weight="600" fill="#1e40af" font-family="system-ui,sans-serif">Overview</text>
+        <rect x="506" y="110" width="248" height="36" rx="8" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1.5"/>
+        <text x="630" y="133" text-anchor="middle" font-size="11" font-weight="600" fill="#1e40af" font-family="system-ui,sans-serif">Workforce</text>
+        <rect x="970" y="110" width="200" height="36" rx="8" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1.5"/>
+        <text x="1070" y="133" text-anchor="middle" font-size="11" font-weight="600" fill="#1e40af" font-family="system-ui,sans-serif">Resources</text>
+        <!-- L3: module nodes (h=54, name + sub-pages) -->
+        <!-- Under Overview -->
+        <rect x="93" y="200" width="124" height="54" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
+        <text x="155" y="221" text-anchor="middle" font-size="10" font-weight="600" fill="#374151" font-family="system-ui,sans-serif">📊 Dashboard</text>
+        <text x="155" y="238" text-anchor="middle" font-size="8.5" fill="#9ca3af" font-family="system-ui,sans-serif">KPI · Tasks · Presence</text>
+        <rect x="227" y="200" width="116" height="54" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
+        <text x="285" y="221" text-anchor="middle" font-size="10" font-weight="600" fill="#374151" font-family="system-ui,sans-serif">👤 Profile</text>
+        <text x="285" y="238" text-anchor="middle" font-size="8.5" fill="#9ca3af" font-family="system-ui,sans-serif">Account · Settings</text>
+        <!-- Under Workforce -->
+        <rect x="353" y="200" width="134" height="54" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
+        <text x="420" y="221" text-anchor="middle" font-size="10" font-weight="600" fill="#374151" font-family="system-ui,sans-serif">🕐 Attendance</text>
+        <text x="420" y="238" text-anchor="middle" font-size="8.5" fill="#9ca3af" font-family="system-ui,sans-serif">Log · Breaks · Report</text>
+        <rect x="513" y="200" width="104" height="54" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
+        <text x="565" y="221" text-anchor="middle" font-size="10" font-weight="600" fill="#374151" font-family="system-ui,sans-serif">🏅 KPI</text>
+        <text x="565" y="238" text-anchor="middle" font-size="8.5" fill="#9ca3af" font-family="system-ui,sans-serif">Entries · Board</text>
+        <rect x="630" y="200" width="84" height="54" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
+        <text x="672" y="221" text-anchor="middle" font-size="10" font-weight="600" fill="#374151" font-family="system-ui,sans-serif">✅ Tasks</text>
+        <text x="672" y="238" text-anchor="middle" font-size="8.5" fill="#9ca3af" font-family="system-ui,sans-serif">Table · Kanban</text>
+        <rect x="714" y="200" width="112" height="54" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
+        <text x="770" y="221" text-anchor="middle" font-size="10" font-weight="600" fill="#374151" font-family="system-ui,sans-serif">🔑 Accounts</text>
+        <text x="770" y="238" text-anchor="middle" font-size="8.5" fill="#9ca3af" font-family="system-ui,sans-serif">Vault · Search</text>
+        <rect x="830" y="200" width="124" height="54" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
+        <text x="892" y="221" text-anchor="middle" font-size="10" font-weight="600" fill="#374151" font-family="system-ui,sans-serif">📢 Announcements</text>
+        <text x="892" y="238" text-anchor="middle" font-size="8.5" fill="#9ca3af" font-family="system-ui,sans-serif">Posts · Pinned</text>
+        <!-- Under Resources -->
+        <rect x="966" y="200" width="112" height="54" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
+        <text x="1022" y="221" text-anchor="middle" font-size="10" font-weight="600" fill="#374151" font-family="system-ui,sans-serif">📚 Knowledge</text>
+        <text x="1022" y="238" text-anchor="middle" font-size="8.5" fill="#9ca3af" font-family="system-ui,sans-serif">Articles · Archive</text>
+        <rect x="1096" y="200" width="112" height="54" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
+        <text x="1152" y="221" text-anchor="middle" font-size="10" font-weight="600" fill="#374151" font-family="system-ui,sans-serif">🔖 Bookmarks</text>
+        <text x="1152" y="238" text-anchor="middle" font-size="8.5" fill="#9ca3af" font-family="system-ui,sans-serif">Team Links</text>
       </svg>
     </div>
   </div>
