@@ -230,27 +230,169 @@
       </div>
       <p class="text-neutral-500 mb-8 max-w-2xl">Before any visual design, I mapped the key user flows and sketched low-fidelity wireframes for the most-used screens to validate layout and hierarchy early.</p>
 
-      <!-- User Flows -->
+      <!-- User Flows (Flowcharts) -->
       <p class="text-sm font-semibold text-neutral-700 mb-4">Key User Flows</p>
-      <div class="space-y-4 mb-10">
-        <div v-for="flow in userFlows" :key="flow.title" class="rounded-2xl border border-neutral-100 p-5">
-          <div class="flex items-center gap-3 mb-4">
-            <span class="text-lg">{{ flow.icon }}</span>
+      <div class="space-y-6 mb-10">
+
+        <!-- Flow 1: Daily Check-in -->
+        <div class="rounded-2xl border border-neutral-100 overflow-hidden">
+          <div class="px-5 py-3 bg-neutral-50 border-b border-neutral-100 flex items-center gap-3">
+            <span>🕐</span>
             <div>
-              <h3 class="font-semibold text-neutral-900 text-sm">{{ flow.title }}</h3>
-              <p class="text-xs text-neutral-500">{{ flow.who }}</p>
+              <p class="text-sm font-semibold text-neutral-800">Daily Check-in</p>
+              <p class="text-xs text-neutral-500">Team member — every morning</p>
             </div>
           </div>
-          <div class="flex items-center flex-wrap gap-2">
-            <div v-for="(step, i) in flow.steps" :key="step" class="flex items-center gap-2">
-              <div class="flex items-center gap-2 bg-blue-50 border border-blue-100 rounded-xl px-3 py-1.5">
-                <span class="h-4 w-4 rounded-full bg-[#2563EB] text-white text-[10px] font-bold flex items-center justify-center shrink-0">{{ i + 1 }}</span>
-                <span class="text-xs text-neutral-700 font-medium">{{ step }}</span>
-              </div>
-              <span v-if="i < flow.steps.length - 1" class="text-neutral-300 text-xs">→</span>
-            </div>
+          <div class="p-5 overflow-x-auto">
+            <svg viewBox="0 0 750 88" xmlns="http://www.w3.org/2000/svg" style="min-width:500px;width:100%">
+              <defs><marker id="af1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9ca3af"/></marker></defs>
+              <rect x="10" y="20" width="128" height="48" rx="24" fill="#2563EB"/>
+              <text x="74" y="41" text-anchor="middle" font-size="11" font-weight="600" fill="white" font-family="system-ui,sans-serif">Open</text>
+              <text x="74" y="55" text-anchor="middle" font-size="11" font-weight="600" fill="white" font-family="system-ui,sans-serif">Dashboard</text>
+              <line x1="138" y1="44" x2="155" y2="44" stroke="#9ca3af" stroke-width="1.5" marker-end="url(#af1)"/>
+              <rect x="160" y="20" width="128" height="48" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
+              <text x="224" y="41" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui,sans-serif">See Clock</text>
+              <text x="224" y="55" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui,sans-serif">Widget</text>
+              <line x1="288" y1="44" x2="305" y2="44" stroke="#9ca3af" stroke-width="1.5" marker-end="url(#af1)"/>
+              <rect x="310" y="20" width="128" height="48" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
+              <text x="374" y="41" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui,sans-serif">Click</text>
+              <text x="374" y="55" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui,sans-serif">Check In</text>
+              <line x1="438" y1="44" x2="455" y2="44" stroke="#9ca3af" stroke-width="1.5" marker-end="url(#af1)"/>
+              <rect x="460" y="20" width="128" height="48" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
+              <text x="524" y="41" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui,sans-serif">Time</text>
+              <text x="524" y="55" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui,sans-serif">Recorded</text>
+              <line x1="588" y1="44" x2="605" y2="44" stroke="#9ca3af" stroke-width="1.5" marker-end="url(#af1)"/>
+              <rect x="610" y="20" width="128" height="48" rx="24" fill="#4F46E5"/>
+              <text x="674" y="41" text-anchor="middle" font-size="11" font-weight="600" fill="white" font-family="system-ui,sans-serif">View</text>
+              <text x="674" y="55" text-anchor="middle" font-size="11" font-weight="600" fill="white" font-family="system-ui,sans-serif">Attendance</text>
+            </svg>
           </div>
         </div>
+
+        <!-- Flow 2: KPI Submission with decision diamond -->
+        <div class="rounded-2xl border border-neutral-100 overflow-hidden">
+          <div class="px-5 py-3 bg-neutral-50 border-b border-neutral-100 flex items-center gap-3">
+            <span>🏅</span>
+            <div>
+              <p class="text-sm font-semibold text-neutral-800">KPI Submission</p>
+              <p class="text-xs text-neutral-500">Reporter → Manager approval</p>
+            </div>
+          </div>
+          <div class="p-5 overflow-x-auto">
+            <svg viewBox="0 0 740 240" xmlns="http://www.w3.org/2000/svg" style="min-width:500px;width:100%">
+              <defs><marker id="af2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9ca3af"/></marker></defs>
+              <rect x="10" y="20" width="128" height="48" rx="24" fill="#2563EB"/>
+              <text x="74" y="41" text-anchor="middle" font-size="11" font-weight="600" fill="white" font-family="system-ui">Open KPI</text>
+              <text x="74" y="55" text-anchor="middle" font-size="11" font-weight="600" fill="white" font-family="system-ui">Page</text>
+              <line x1="138" y1="44" x2="155" y2="44" stroke="#9ca3af" stroke-width="1.5" marker-end="url(#af2)"/>
+              <rect x="160" y="20" width="128" height="48" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
+              <text x="224" y="41" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui">Click Add</text>
+              <text x="224" y="55" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui">Entry</text>
+              <line x1="288" y1="44" x2="305" y2="44" stroke="#9ca3af" stroke-width="1.5" marker-end="url(#af2)"/>
+              <rect x="310" y="20" width="128" height="48" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
+              <text x="374" y="41" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui">Fill Details</text>
+              <text x="374" y="55" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui">+ Points</text>
+              <line x1="438" y1="44" x2="455" y2="44" stroke="#9ca3af" stroke-width="1.5" marker-end="url(#af2)"/>
+              <rect x="460" y="20" width="128" height="48" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
+              <text x="524" y="41" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui">Submit for</text>
+              <text x="524" y="55" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui">Review</text>
+              <line x1="524" y1="68" x2="524" y2="96" stroke="#9ca3af" stroke-width="1.5" marker-end="url(#af2)"/>
+              <polygon points="524,100 580,128 524,156 468,128" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1.5"/>
+              <text x="524" y="123" text-anchor="middle" font-size="9" fill="#92400E" font-family="system-ui">Manager</text>
+              <text x="524" y="136" text-anchor="middle" font-size="9" fill="#92400E" font-family="system-ui">Approved?</text>
+              <line x1="468" y1="128" x2="362" y2="128" stroke="#9ca3af" stroke-width="1.5"/>
+              <line x1="362" y1="128" x2="362" y2="178" stroke="#9ca3af" stroke-width="1.5" marker-end="url(#af2)"/>
+              <text x="414" y="122" text-anchor="middle" font-size="9" fill="#059669" font-weight="700" font-family="system-ui">YES</text>
+              <rect x="298" y="178" width="128" height="48" rx="24" fill="#059669"/>
+              <text x="362" y="199" text-anchor="middle" font-size="11" font-weight="600" fill="white" font-family="system-ui">Score</text>
+              <text x="362" y="213" text-anchor="middle" font-size="11" font-weight="600" fill="white" font-family="system-ui">Updated ✓</text>
+              <line x1="580" y1="128" x2="660" y2="128" stroke="#9ca3af" stroke-width="1.5"/>
+              <line x1="660" y1="128" x2="660" y2="178" stroke="#9ca3af" stroke-width="1.5" marker-end="url(#af2)"/>
+              <text x="618" y="122" text-anchor="middle" font-size="9" fill="#dc2626" font-weight="700" font-family="system-ui">NO</text>
+              <rect x="596" y="178" width="128" height="48" rx="24" fill="#DC2626"/>
+              <text x="660" y="199" text-anchor="middle" font-size="11" font-weight="600" fill="white" font-family="system-ui">Entry</text>
+              <text x="660" y="213" text-anchor="middle" font-size="11" font-weight="600" fill="white" font-family="system-ui">Rejected ✗</text>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Flow 3: Task Management -->
+        <div class="rounded-2xl border border-neutral-100 overflow-hidden">
+          <div class="px-5 py-3 bg-neutral-50 border-b border-neutral-100 flex items-center gap-3">
+            <span>✅</span>
+            <div>
+              <p class="text-sm font-semibold text-neutral-800">Task Management</p>
+              <p class="text-xs text-neutral-500">Team member — any time</p>
+            </div>
+          </div>
+          <div class="p-5 overflow-x-auto">
+            <svg viewBox="0 0 900 88" xmlns="http://www.w3.org/2000/svg" style="min-width:600px;width:100%">
+              <defs><marker id="af3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9ca3af"/></marker></defs>
+              <rect x="10" y="20" width="128" height="48" rx="24" fill="#2563EB"/>
+              <text x="74" y="41" text-anchor="middle" font-size="11" font-weight="600" fill="white" font-family="system-ui">Open</text>
+              <text x="74" y="55" text-anchor="middle" font-size="11" font-weight="600" fill="white" font-family="system-ui">Tasks</text>
+              <line x1="138" y1="44" x2="155" y2="44" stroke="#9ca3af" stroke-width="1.5" marker-end="url(#af3)"/>
+              <rect x="160" y="20" width="128" height="48" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
+              <text x="224" y="41" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui">Filter</text>
+              <text x="224" y="55" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui">by Status</text>
+              <line x1="288" y1="44" x2="305" y2="44" stroke="#9ca3af" stroke-width="1.5" marker-end="url(#af3)"/>
+              <rect x="310" y="20" width="128" height="48" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
+              <text x="374" y="41" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui">View Due-date</text>
+              <text x="374" y="55" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui">Badge</text>
+              <line x1="438" y1="44" x2="455" y2="44" stroke="#9ca3af" stroke-width="1.5" marker-end="url(#af3)"/>
+              <rect x="460" y="20" width="128" height="48" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
+              <text x="524" y="41" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui">Switch to</text>
+              <text x="524" y="55" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui">Kanban</text>
+              <line x1="588" y1="44" x2="605" y2="44" stroke="#9ca3af" stroke-width="1.5" marker-end="url(#af3)"/>
+              <rect x="610" y="20" width="128" height="48" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
+              <text x="674" y="41" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui">Drag Card</text>
+              <text x="674" y="55" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui">to Done</text>
+              <line x1="738" y1="44" x2="755" y2="44" stroke="#9ca3af" stroke-width="1.5" marker-end="url(#af3)"/>
+              <rect x="760" y="20" width="128" height="48" rx="24" fill="#4F46E5"/>
+              <text x="824" y="41" text-anchor="middle" font-size="11" font-weight="600" fill="white" font-family="system-ui">Task</text>
+              <text x="824" y="55" text-anchor="middle" font-size="11" font-weight="600" fill="white" font-family="system-ui">Completed</text>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Flow 4: Post Announcement -->
+        <div class="rounded-2xl border border-neutral-100 overflow-hidden">
+          <div class="px-5 py-3 bg-neutral-50 border-b border-neutral-100 flex items-center gap-3">
+            <span>📢</span>
+            <div>
+              <p class="text-sm font-semibold text-neutral-800">Post an Announcement</p>
+              <p class="text-xs text-neutral-500">Manager</p>
+            </div>
+          </div>
+          <div class="p-5 overflow-x-auto">
+            <svg viewBox="0 0 900 88" xmlns="http://www.w3.org/2000/svg" style="min-width:600px;width:100%">
+              <defs><marker id="af4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9ca3af"/></marker></defs>
+              <rect x="10" y="20" width="128" height="48" rx="24" fill="#2563EB"/>
+              <text x="74" y="41" text-anchor="middle" font-size="11" font-weight="600" fill="white" font-family="system-ui">Open</text>
+              <text x="74" y="55" text-anchor="middle" font-size="11" font-weight="600" fill="white" font-family="system-ui">Announcements</text>
+              <line x1="138" y1="44" x2="155" y2="44" stroke="#9ca3af" stroke-width="1.5" marker-end="url(#af4)"/>
+              <rect x="160" y="20" width="128" height="48" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
+              <text x="224" y="41" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui">Click New</text>
+              <text x="224" y="55" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui">Announcement</text>
+              <line x1="288" y1="44" x2="305" y2="44" stroke="#9ca3af" stroke-width="1.5" marker-end="url(#af4)"/>
+              <rect x="310" y="20" width="128" height="48" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
+              <text x="374" y="41" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui">Choose Type</text>
+              <text x="374" y="55" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui">+ Write</text>
+              <line x1="438" y1="44" x2="455" y2="44" stroke="#9ca3af" stroke-width="1.5" marker-end="url(#af4)"/>
+              <rect x="460" y="20" width="128" height="48" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
+              <text x="524" y="44" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui">Publish Post</text>
+              <line x1="588" y1="44" x2="605" y2="44" stroke="#9ca3af" stroke-width="1.5" marker-end="url(#af4)"/>
+              <rect x="610" y="20" width="128" height="48" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
+              <text x="674" y="41" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui">All Team</text>
+              <text x="674" y="55" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui">Notified</text>
+              <line x1="738" y1="44" x2="755" y2="44" stroke="#9ca3af" stroke-width="1.5" marker-end="url(#af4)"/>
+              <rect x="760" y="20" width="128" height="48" rx="24" fill="#4F46E5"/>
+              <text x="824" y="41" text-anchor="middle" font-size="11" font-weight="600" fill="white" font-family="system-ui">Unread Badge</text>
+              <text x="824" y="55" text-anchor="middle" font-size="11" font-weight="600" fill="white" font-family="system-ui">Shown ✓</text>
+            </svg>
+          </div>
+        </div>
+
       </div>
 
       <!-- Wireframes -->
@@ -323,26 +465,54 @@
         <h2 class="text-2xl font-bold text-neutral-900">Information Architecture</h2>
       </div>
       <p class="text-neutral-500 mb-8 max-w-2xl">The sidebar groups modules by frequency of use. Overview stays at the top — the dashboard is where everyone starts their day. Workforce tools follow, then quieter Resources at the bottom.</p>
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="rounded-2xl border border-neutral-100 p-6">
-          <p class="text-xs uppercase tracking-wider text-neutral-400 font-medium mb-4">Navigation Structure</p>
-          <div class="space-y-1">
-            <div v-for="nav in navTree" :key="nav.section">
-              <p class="text-[10px] uppercase tracking-wider text-neutral-400 font-semibold mt-3 mb-1 first:mt-0">{{ nav.section }}</p>
-              <div v-for="item in nav.items" :key="item.name" class="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50">
-                <span class="text-base">{{ item.icon }}</span>
-                <span>{{ item.name }}</span>
-                <span v-if="item.children" class="ml-auto text-xs text-neutral-400">{{ item.children.join(' · ') }}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="space-y-4">
-          <div v-for="ia in iaDecisions" :key="ia.title" class="rounded-2xl border border-neutral-100 p-5">
-            <p class="font-semibold text-neutral-800 text-sm mb-1">{{ ia.title }}</p>
-            <p class="text-xs text-neutral-500 leading-relaxed">{{ ia.reason }}</p>
-          </div>
-        </div>
+      <div class="rounded-2xl border border-neutral-100 p-6 overflow-x-auto">
+        <svg viewBox="0 0 960 270" xmlns="http://www.w3.org/2000/svg" style="min-width:640px;width:100%">
+          <!-- Tree connector lines -->
+          <line x1="460" y1="60" x2="460" y2="90" stroke="#e5e7eb" stroke-width="1.5"/>
+          <line x1="120" y1="90" x2="830" y2="90" stroke="#e5e7eb" stroke-width="1.5"/>
+          <line x1="120" y1="90" x2="120" y2="120" stroke="#e5e7eb" stroke-width="1.5"/>
+          <line x1="460" y1="90" x2="460" y2="120" stroke="#e5e7eb" stroke-width="1.5"/>
+          <line x1="830" y1="90" x2="830" y2="120" stroke="#e5e7eb" stroke-width="1.5"/>
+          <!-- Overview → Dashboard -->
+          <line x1="120" y1="156" x2="120" y2="210" stroke="#e5e7eb" stroke-width="1.5"/>
+          <!-- Workforce → 4 children -->
+          <line x1="460" y1="156" x2="460" y2="183" stroke="#e5e7eb" stroke-width="1.5"/>
+          <line x1="307" y1="183" x2="598" y2="183" stroke="#e5e7eb" stroke-width="1.5"/>
+          <line x1="307" y1="183" x2="307" y2="210" stroke="#e5e7eb" stroke-width="1.5"/>
+          <line x1="407" y1="183" x2="407" y2="210" stroke="#e5e7eb" stroke-width="1.5"/>
+          <line x1="500" y1="183" x2="500" y2="210" stroke="#e5e7eb" stroke-width="1.5"/>
+          <line x1="598" y1="183" x2="598" y2="210" stroke="#e5e7eb" stroke-width="1.5"/>
+          <!-- Resources → 2 children -->
+          <line x1="830" y1="156" x2="830" y2="183" stroke="#e5e7eb" stroke-width="1.5"/>
+          <line x1="780" y1="183" x2="880" y2="183" stroke="#e5e7eb" stroke-width="1.5"/>
+          <line x1="780" y1="183" x2="780" y2="210" stroke="#e5e7eb" stroke-width="1.5"/>
+          <line x1="880" y1="183" x2="880" y2="210" stroke="#e5e7eb" stroke-width="1.5"/>
+          <!-- Root -->
+          <rect x="380" y="20" width="160" height="40" rx="20" fill="#2563EB"/>
+          <text x="460" y="45" text-anchor="middle" font-size="13" font-weight="700" fill="white" font-family="system-ui,sans-serif">DGSystem</text>
+          <!-- L2 nodes -->
+          <rect x="50" y="120" width="140" height="36" rx="8" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1.5"/>
+          <text x="120" y="143" text-anchor="middle" font-size="11" font-weight="600" fill="#1e40af" font-family="system-ui,sans-serif">Overview</text>
+          <rect x="350" y="120" width="220" height="36" rx="8" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1.5"/>
+          <text x="460" y="143" text-anchor="middle" font-size="11" font-weight="600" fill="#1e40af" font-family="system-ui,sans-serif">Workforce</text>
+          <rect x="750" y="120" width="160" height="36" rx="8" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1.5"/>
+          <text x="830" y="143" text-anchor="middle" font-size="11" font-weight="600" fill="#1e40af" font-family="system-ui,sans-serif">Resources</text>
+          <!-- L3 nodes -->
+          <rect x="60" y="210" width="120" height="36" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
+          <text x="120" y="233" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui,sans-serif">📊 Dashboard</text>
+          <rect x="248" y="210" width="118" height="36" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
+          <text x="307" y="233" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui,sans-serif">🕐 Attendance</text>
+          <rect x="365" y="210" width="84" height="36" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
+          <text x="407" y="233" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui,sans-serif">🏅 KPI</text>
+          <rect x="458" y="210" width="84" height="36" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
+          <text x="500" y="233" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui,sans-serif">✅ Tasks</text>
+          <rect x="540" y="210" width="116" height="36" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
+          <text x="598" y="233" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui,sans-serif">👤 Accounts</text>
+          <rect x="724" y="210" width="112" height="36" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
+          <text x="780" y="233" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui,sans-serif">📚 Knowledge</text>
+          <rect x="826" y="210" width="108" height="36" rx="8" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
+          <text x="880" y="233" text-anchor="middle" font-size="10" fill="#374151" font-family="system-ui,sans-serif">🔖 Bookmarks</text>
+        </svg>
       </div>
     </section>
 
