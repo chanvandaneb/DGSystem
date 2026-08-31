@@ -598,42 +598,333 @@
 
     <!-- Design System -->
     <section id="design" class="mx-auto max-w-5xl px-6 py-16 md:py-20">
-      <div class="flex items-center gap-3 mb-8">
+      <div class="flex items-center gap-3 mb-3">
         <div class="h-8 w-8 rounded-full bg-violet-100 flex items-center justify-center text-violet-600 text-sm">🎨</div>
         <h2 class="text-2xl font-bold text-neutral-900">Design System</h2>
       </div>
+      <p class="text-neutral-500 mb-10 max-w-2xl">A shared visual language — colors, type, spacing, and components — that makes all 9 modules feel like one product rather than a patchwork of separate tools.</p>
 
-      <!-- Color palette -->
-      <div class="mb-8">
-        <p class="text-xs uppercase tracking-wider text-neutral-400 font-medium mb-4">Color Palette</p>
-        <div class="flex flex-wrap gap-3">
-          <div v-for="color in palette" :key="color.name" class="flex items-center gap-3 rounded-xl border border-neutral-100 px-4 py-3">
-            <div :style="{ background: color.hex }" class="h-8 w-8 rounded-lg shadow-sm"></div>
-            <div>
-              <p class="text-xs font-semibold text-neutral-800">{{ color.name }}</p>
-              <p class="text-xs text-neutral-400">{{ color.hex }}</p>
+      <!-- 1. Color System -->
+      <div class="mb-10">
+        <p class="text-xs uppercase tracking-wider text-neutral-400 font-semibold mb-5">1 · Color System</p>
+        <div class="rounded-2xl mb-4 flex items-end p-5" style="background:linear-gradient(135deg,#2563EB,#4F46E5);min-height:72px">
+          <div>
+            <p class="text-[10px] font-semibold uppercase tracking-widest mb-1" style="color:rgba(255,255,255,.6)">Brand Gradient</p>
+            <p class="text-sm font-semibold text-white">#2563EB → #4F46E5 · Hero sections, CTA buttons, active nav item</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div class="rounded-xl border border-neutral-100 overflow-hidden">
+            <div class="h-12" style="background:#2563EB"></div>
+            <div class="p-3"><p class="text-xs font-semibold text-neutral-800">Brand Blue</p><p class="text-[10px] text-neutral-400">#2563EB · Primary actions</p></div>
+          </div>
+          <div class="rounded-xl border border-neutral-100 overflow-hidden">
+            <div class="h-12" style="background:#4F46E5"></div>
+            <div class="p-3"><p class="text-xs font-semibold text-neutral-800">Brand Indigo</p><p class="text-[10px] text-neutral-400">#4F46E5 · Secondary accent</p></div>
+          </div>
+          <div class="rounded-xl border border-neutral-100 overflow-hidden">
+            <div class="h-12" style="background:#0f172a"></div>
+            <div class="p-3"><p class="text-xs font-semibold text-neutral-800">Surface Dark</p><p class="text-[10px] text-neutral-400">#0f172a · Dark mode bg</p></div>
+          </div>
+          <div class="rounded-xl border border-neutral-100 overflow-hidden">
+            <div class="h-12 border-b border-neutral-100" style="background:#ffffff"></div>
+            <div class="p-3"><p class="text-xs font-semibold text-neutral-800">Surface Light</p><p class="text-[10px] text-neutral-400">#ffffff · Cards, panels</p></div>
+          </div>
+          <div class="rounded-xl border border-neutral-100 overflow-hidden">
+            <div class="h-12" style="background:#171717"></div>
+            <div class="p-3"><p class="text-xs font-semibold text-neutral-800">Text Primary</p><p class="text-[10px] text-neutral-400">#171717 · Headings</p></div>
+          </div>
+          <div class="rounded-xl border border-neutral-100 overflow-hidden">
+            <div class="h-12" style="background:#737373"></div>
+            <div class="p-3"><p class="text-xs font-semibold text-neutral-800">Text Muted</p><p class="text-[10px] text-neutral-400">#737373 · Body copy</p></div>
+          </div>
+          <div class="rounded-xl border border-neutral-100 overflow-hidden">
+            <div class="h-12 border-b border-neutral-100" style="background:#f3f4f6"></div>
+            <div class="p-3"><p class="text-xs font-semibold text-neutral-800">Border Light</p><p class="text-[10px] text-neutral-400">#f3f4f6 · Dividers</p></div>
+          </div>
+          <div class="rounded-xl border border-neutral-100 overflow-hidden">
+            <div class="h-12 border-b border-neutral-100" style="background:#fafafa"></div>
+            <div class="p-3"><p class="text-xs font-semibold text-neutral-800">Surface Subtle</p><p class="text-[10px] text-neutral-400">#fafafa · Row bg</p></div>
+          </div>
+          <div class="rounded-xl border border-neutral-100 overflow-hidden">
+            <div class="h-12" style="background:#10b981"></div>
+            <div class="p-3"><p class="text-xs font-semibold text-neutral-800">Success</p><p class="text-[10px] text-neutral-400">#10b981 · On-time, approved</p></div>
+          </div>
+          <div class="rounded-xl border border-neutral-100 overflow-hidden">
+            <div class="h-12" style="background:#f59e0b"></div>
+            <div class="p-3"><p class="text-xs font-semibold text-neutral-800">Warning</p><p class="text-[10px] text-neutral-400">#f59e0b · Due today</p></div>
+          </div>
+          <div class="rounded-xl border border-neutral-100 overflow-hidden">
+            <div class="h-12" style="background:#ef4444"></div>
+            <div class="p-3"><p class="text-xs font-semibold text-neutral-800">Error / Danger</p><p class="text-[10px] text-neutral-400">#ef4444 · Overdue, rejected</p></div>
+          </div>
+          <div class="rounded-xl border border-neutral-100 overflow-hidden">
+            <div class="h-12" style="background:#8b5cf6"></div>
+            <div class="p-3"><p class="text-xs font-semibold text-neutral-800">Info / Accent</p><p class="text-[10px] text-neutral-400">#8b5cf6 · Tags, highlights</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Typography Scale -->
+      <div class="mb-10">
+        <p class="text-xs uppercase tracking-wider text-neutral-400 font-semibold mb-5">2 · Typography Scale</p>
+        <div class="rounded-2xl border border-neutral-100 overflow-hidden">
+          <div class="bg-neutral-50 border-b border-neutral-100 px-5 py-3 grid grid-cols-4 gap-4 text-[10px] uppercase tracking-wider text-neutral-400 font-semibold">
+            <span>Level</span><span>Size · Weight</span><span class="col-span-2">Sample</span>
+          </div>
+          <div class="divide-y divide-neutral-50">
+            <div class="px-5 py-4 grid grid-cols-4 gap-4 items-center">
+              <span class="text-xs text-neutral-400">Page Title</span>
+              <span class="text-[10px] text-neutral-400">24px · 700</span>
+              <span class="col-span-2 text-2xl font-bold text-neutral-900">Good evening, Alex 👋</span>
+            </div>
+            <div class="px-5 py-4 grid grid-cols-4 gap-4 items-center bg-neutral-50/50">
+              <span class="text-xs text-neutral-400">Section H2</span>
+              <span class="text-[10px] text-neutral-400">18px · 600</span>
+              <span class="col-span-2 text-lg font-semibold text-neutral-800">Working Hours Trend</span>
+            </div>
+            <div class="px-5 py-4 grid grid-cols-4 gap-4 items-center">
+              <span class="text-xs text-neutral-400">Card Title</span>
+              <span class="text-[10px] text-neutral-400">15px · 600</span>
+              <span class="col-span-2 font-semibold text-neutral-800" style="font-size:15px">Attendance Overview</span>
+            </div>
+            <div class="px-5 py-4 grid grid-cols-4 gap-4 items-center bg-neutral-50/50">
+              <span class="text-xs text-neutral-400">Body</span>
+              <span class="text-[10px] text-neutral-400">14px · 400</span>
+              <span class="col-span-2 text-sm text-neutral-600">Todo: 10 · Doing: 7 · Done: 21 — updated 2 min ago</span>
+            </div>
+            <div class="px-5 py-4 grid grid-cols-4 gap-4 items-center">
+              <span class="text-xs text-neutral-400">Caption</span>
+              <span class="text-[10px] text-neutral-400">12px · 400–500</span>
+              <span class="col-span-2 text-xs text-neutral-500">Last check-in: 08:47 AM · On time</span>
+            </div>
+            <div class="px-5 py-4 grid grid-cols-4 gap-4 items-center bg-neutral-50/50">
+              <span class="text-xs text-neutral-400">Overline / Tag</span>
+              <span class="text-[10px] text-neutral-400">10px · 700 caps</span>
+              <span class="col-span-2 text-[10px] font-bold uppercase tracking-widest text-neutral-400">MONTHLY REPORT · KPI SCORE</span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Typography -->
-      <div class="mb-8 rounded-2xl border border-neutral-100 p-6">
-        <p class="text-xs uppercase tracking-wider text-neutral-400 font-medium mb-4">Typography Scale</p>
-        <div class="space-y-3">
-          <div v-for="type in typography" :key="type.name" class="flex items-center gap-4">
-            <span class="text-xs text-neutral-400 w-24 shrink-0">{{ type.name }}</span>
-            <span :class="type.class" class="text-neutral-800">{{ type.sample }}</span>
+      <!-- 3. Spacing System -->
+      <div class="mb-10">
+        <p class="text-xs uppercase tracking-wider text-neutral-400 font-semibold mb-5">3 · Spacing System — 4px base grid</p>
+        <div class="rounded-2xl border border-neutral-100 p-6">
+          <div class="flex items-end gap-4 flex-wrap">
+            <div class="flex flex-col items-center gap-2">
+              <div class="bg-blue-100 rounded" style="width:4px;height:32px"></div>
+              <span class="text-[9px] font-bold text-neutral-500">4px</span>
+              <span class="text-[9px] text-neutral-400">Icon gap</span>
+            </div>
+            <div class="flex flex-col items-center gap-2">
+              <div class="bg-blue-100 rounded" style="width:8px;height:32px"></div>
+              <span class="text-[9px] font-bold text-neutral-500">8px</span>
+              <span class="text-[9px] text-neutral-400">Tight</span>
+            </div>
+            <div class="flex flex-col items-center gap-2">
+              <div class="bg-blue-100 rounded" style="width:12px;height:32px"></div>
+              <span class="text-[9px] font-bold text-neutral-500">12px</span>
+              <span class="text-[9px] text-neutral-400">Tag pad</span>
+            </div>
+            <div class="flex flex-col items-center gap-2">
+              <div class="bg-blue-100 rounded" style="width:16px;height:32px"></div>
+              <span class="text-[9px] font-bold text-neutral-500">16px</span>
+              <span class="text-[9px] text-neutral-400">Row gap</span>
+            </div>
+            <div class="flex flex-col items-center gap-2">
+              <div class="bg-blue-100 rounded" style="width:20px;height:32px"></div>
+              <span class="text-[9px] font-bold text-neutral-500">20px</span>
+              <span class="text-[9px] text-neutral-400">Card pad</span>
+            </div>
+            <div class="flex flex-col items-center gap-2">
+              <div class="bg-blue-200 rounded" style="width:24px;height:32px"></div>
+              <span class="text-[9px] font-bold text-neutral-500">24px</span>
+              <span class="text-[9px] text-neutral-400">Section</span>
+            </div>
+            <div class="flex flex-col items-center gap-2">
+              <div class="bg-blue-200 rounded" style="width:32px;height:32px"></div>
+              <span class="text-[9px] font-bold text-neutral-500">32px</span>
+              <span class="text-[9px] text-neutral-400">Page gap</span>
+            </div>
+            <div class="flex flex-col items-center gap-2">
+              <div class="bg-blue-300 rounded" style="width:48px;height:32px"></div>
+              <span class="text-[9px] font-bold text-neutral-500">48px</span>
+              <span class="text-[9px] text-neutral-400">Hero pad</span>
+            </div>
+            <div class="flex flex-col items-center gap-2">
+              <div class="bg-blue-400 rounded" style="width:64px;height:32px"></div>
+              <span class="text-[9px] font-bold text-neutral-500">64px</span>
+              <span class="text-[9px] text-neutral-400">Section py</span>
+            </div>
+          </div>
+          <p class="text-xs text-neutral-400 mt-5">Every margin, padding, and gap in the interface is a multiple of 4px. This keeps spacing decisions consistent without needing to measure.</p>
+        </div>
+      </div>
+
+      <!-- 4–5. Border Radius & Elevation -->
+      <div class="grid md:grid-cols-2 gap-6 mb-10">
+        <div class="rounded-2xl border border-neutral-100 p-6">
+          <p class="text-xs uppercase tracking-wider text-neutral-400 font-semibold mb-5">4 · Border Radius</p>
+          <div class="flex items-end gap-5 flex-wrap">
+            <div class="flex flex-col items-center gap-2"><div class="w-10 h-10 bg-blue-100 rounded-sm"></div><span class="text-[9px] font-bold text-neutral-500">2px</span><span class="text-[9px] text-neutral-400">Tag</span></div>
+            <div class="flex flex-col items-center gap-2"><div class="w-10 h-10 bg-blue-100 rounded"></div><span class="text-[9px] font-bold text-neutral-500">4px</span><span class="text-[9px] text-neutral-400">Badge</span></div>
+            <div class="flex flex-col items-center gap-2"><div class="w-10 h-10 bg-blue-100 rounded-lg"></div><span class="text-[9px] font-bold text-neutral-500">8px</span><span class="text-[9px] text-neutral-400">Button</span></div>
+            <div class="flex flex-col items-center gap-2"><div class="w-10 h-10 bg-blue-100 rounded-xl"></div><span class="text-[9px] font-bold text-neutral-500">12px</span><span class="text-[9px] text-neutral-400">Input</span></div>
+            <div class="flex flex-col items-center gap-2"><div class="w-10 h-10 bg-blue-100 rounded-2xl"></div><span class="text-[9px] font-bold text-neutral-500">16px</span><span class="text-[9px] text-neutral-400">Card</span></div>
+            <div class="flex flex-col items-center gap-2"><div class="w-10 h-10 bg-blue-100 rounded-full"></div><span class="text-[9px] font-bold text-neutral-500">9999px</span><span class="text-[9px] text-neutral-400">Pill</span></div>
+          </div>
+        </div>
+        <div class="rounded-2xl border border-neutral-100 p-6">
+          <p class="text-xs uppercase tracking-wider text-neutral-400 font-semibold mb-5">5 · Elevation / Shadow</p>
+          <div class="flex flex-col gap-4">
+            <div class="h-12 rounded-xl bg-white border border-neutral-100 flex items-center px-4">
+              <div><p class="text-xs font-semibold text-neutral-700">Flat (border only)</p><p class="text-[10px] text-neutral-400">1px solid #f3f4f6 · most data cards</p></div>
+            </div>
+            <div class="h-12 rounded-xl bg-white shadow-sm flex items-center px-4">
+              <div><p class="text-xs font-semibold text-neutral-700">shadow-sm</p><p class="text-[10px] text-neutral-400">0 1px 3px rgba(0,0,0,.06) · screen cards</p></div>
+            </div>
+            <div class="h-12 rounded-xl bg-white shadow-lg flex items-center px-4">
+              <div><p class="text-xs font-semibold text-neutral-700">shadow-lg</p><p class="text-[10px] text-neutral-400">0 10px 30px rgba(0,0,0,.1) · modals, dropdowns</p></div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Design principles -->
-      <div class="grid md:grid-cols-3 gap-4">
-        <div v-for="p in principles" :key="p.title" class="rounded-2xl bg-gradient-to-br from-[#EFF6FF] to-[#EDE9FE] p-5">
-          <span class="text-2xl block mb-3">{{ p.icon }}</span>
-          <h3 class="font-semibold text-neutral-800 text-sm mb-1">{{ p.title }}</h3>
-          <p class="text-xs text-neutral-600 leading-relaxed">{{ p.desc }}</p>
+      <!-- 6. Buttons -->
+      <div class="mb-10">
+        <p class="text-xs uppercase tracking-wider text-neutral-400 font-semibold mb-5">6 · Button Components</p>
+        <div class="rounded-2xl border border-neutral-100 p-6 space-y-4">
+          <div>
+            <p class="text-[10px] text-neutral-400 mb-3 uppercase tracking-wider font-semibold">Variants</p>
+            <div class="flex flex-wrap gap-3">
+              <button class="px-4 py-2 rounded-lg text-white text-sm font-medium" style="background:#2563EB">Primary</button>
+              <button class="px-4 py-2 rounded-lg text-sm font-medium bg-white" style="border:1px solid #2563EB;color:#2563EB">Secondary</button>
+              <button class="px-4 py-2 rounded-lg text-white text-sm font-medium" style="background:#171717">Dark</button>
+              <button class="px-4 py-2 rounded-lg text-white text-sm font-medium" style="background:#ef4444">Danger</button>
+              <button class="px-4 py-2 rounded-lg text-white text-sm font-medium" style="background:#10b981">Success</button>
+              <button class="px-4 py-2 rounded-lg text-sm font-medium" style="border:1px solid #e5e7eb;color:#737373;background:#fafafa">Ghost</button>
+              <button class="px-4 py-2 rounded-lg text-sm font-medium cursor-not-allowed" style="background:#f3f4f6;color:#a3a3a3" disabled>Disabled</button>
+            </div>
+          </div>
+          <div>
+            <p class="text-[10px] text-neutral-400 mb-3 uppercase tracking-wider font-semibold">Sizes</p>
+            <div class="flex flex-wrap items-center gap-3">
+              <button class="px-3 py-1.5 rounded-lg text-white text-xs font-medium" style="background:#2563EB">Small</button>
+              <button class="px-4 py-2 rounded-lg text-white text-sm font-medium" style="background:#2563EB">Medium</button>
+              <button class="px-5 py-2.5 rounded-xl text-white font-medium" style="background:#2563EB">Large</button>
+              <button class="px-5 py-2 rounded-full text-white text-sm font-medium" style="background:#2563EB">Pill</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. Badges -->
+      <div class="mb-10">
+        <p class="text-xs uppercase tracking-wider text-neutral-400 font-semibold mb-5">7 · Badge & Status Tags</p>
+        <div class="rounded-2xl border border-neutral-100 p-6 space-y-4">
+          <div>
+            <p class="text-[10px] text-neutral-400 mb-3 uppercase tracking-wider font-semibold">Soft badges (pill)</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-2.5 py-1 rounded-full text-xs font-semibold" style="background:#d1fae5;color:#065f46">On Time</span>
+              <span class="px-2.5 py-1 rounded-full text-xs font-semibold" style="background:#fee2e2;color:#991b1b">Late</span>
+              <span class="px-2.5 py-1 rounded-full text-xs font-semibold" style="background:#fef3c7;color:#92400e">Due Today</span>
+              <span class="px-2.5 py-1 rounded-full text-xs font-semibold" style="background:#dbeafe;color:#1e40af">In Review</span>
+              <span class="px-2.5 py-1 rounded-full text-xs font-semibold" style="background:#ede9fe;color:#5b21b6">High Priority</span>
+              <span class="px-2.5 py-1 rounded-full text-xs font-semibold" style="background:#f3f4f6;color:#374151">Neutral</span>
+            </div>
+          </div>
+          <div>
+            <p class="text-[10px] text-neutral-400 mb-3 uppercase tracking-wider font-semibold">Solid status (square)</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide text-white" style="background:#10b981">Approved</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide text-white" style="background:#ef4444">Rejected</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide text-white" style="background:#f59e0b">Pending</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide text-white" style="background:#2563EB">New</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide text-white" style="background:#737373">Done</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8. Dark Mode Tokens -->
+      <div class="mb-10">
+        <p class="text-xs uppercase tracking-wider text-neutral-400 font-semibold mb-5">8 · Dark Mode Token Mapping</p>
+        <div class="rounded-2xl border border-neutral-100 overflow-hidden">
+          <div class="grid md:grid-cols-2">
+            <div class="p-6 bg-white border-b md:border-b-0 md:border-r border-neutral-100">
+              <p class="text-xs font-semibold text-neutral-500 mb-4">☀️ Light Mode</p>
+              <div class="space-y-3">
+                <div class="flex items-center gap-3">
+                  <div class="w-7 h-7 rounded-lg border border-neutral-200 shrink-0" style="background:#ffffff"></div>
+                  <div><p class="text-xs font-semibold text-neutral-700">--bg-surface</p><p class="text-[10px] text-neutral-400">#ffffff · page background</p></div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <div class="w-7 h-7 rounded-lg border border-neutral-200 shrink-0" style="background:#fafafa"></div>
+                  <div><p class="text-xs font-semibold text-neutral-700">--bg-subtle</p><p class="text-[10px] text-neutral-400">#fafafa · row alternates</p></div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <div class="w-7 h-7 rounded-lg shrink-0" style="background:#171717"></div>
+                  <div><p class="text-xs font-semibold text-neutral-700">--text-primary</p><p class="text-[10px] text-neutral-400">#171717 · headings, labels</p></div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <div class="w-7 h-7 rounded-lg shrink-0" style="background:#f3f4f6"></div>
+                  <div><p class="text-xs font-semibold text-neutral-700">--border</p><p class="text-[10px] text-neutral-400">#f3f4f6 · card borders</p></div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <div class="w-7 h-7 rounded-lg shrink-0" style="background:#737373"></div>
+                  <div><p class="text-xs font-semibold text-neutral-700">--text-muted</p><p class="text-[10px] text-neutral-400">#737373 · descriptions</p></div>
+                </div>
+              </div>
+            </div>
+            <div class="p-6" style="background:#0f172a">
+              <p class="text-xs font-semibold mb-4" style="color:#94a3b8">🌙 Dark Mode</p>
+              <div class="space-y-3">
+                <div class="flex items-center gap-3">
+                  <div class="w-7 h-7 rounded-lg shrink-0" style="background:#1e293b;border:1px solid #334155"></div>
+                  <div><p class="text-xs font-semibold" style="color:#e2e8f0">--bg-surface</p><p class="text-[10px]" style="color:#64748b">#1e293b · page background</p></div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <div class="w-7 h-7 rounded-lg shrink-0" style="background:#0f172a;border:1px solid #1e293b"></div>
+                  <div><p class="text-xs font-semibold" style="color:#e2e8f0">--bg-subtle</p><p class="text-[10px]" style="color:#64748b">#0f172a · row alternates</p></div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <div class="w-7 h-7 rounded-lg shrink-0" style="background:#f1f5f9"></div>
+                  <div><p class="text-xs font-semibold" style="color:#e2e8f0">--text-primary</p><p class="text-[10px]" style="color:#64748b">#f1f5f9 · headings, labels</p></div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <div class="w-7 h-7 rounded-lg shrink-0" style="background:#1e293b;border:1px solid #334155"></div>
+                  <div><p class="text-xs font-semibold" style="color:#e2e8f0">--border</p><p class="text-[10px]" style="color:#64748b">#1e293b · card borders</p></div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <div class="w-7 h-7 rounded-lg shrink-0" style="background:#94a3b8"></div>
+                  <div><p class="text-xs font-semibold" style="color:#e2e8f0">--text-muted</p><p class="text-[10px]" style="color:#64748b">#94a3b8 · descriptions</p></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 9. Design Principles -->
+      <div>
+        <p class="text-xs uppercase tracking-wider text-neutral-400 font-semibold mb-5">9 · Design Principles</p>
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="rounded-2xl bg-gradient-to-br from-[#EFF6FF] to-[#EDE9FE] p-5">
+            <span class="text-2xl block mb-3">🎯</span>
+            <h3 class="font-semibold text-neutral-800 text-sm mb-2">Clarity over cleverness</h3>
+            <p class="text-xs text-neutral-600 leading-relaxed">Every screen has one primary action. Labels describe exactly what they do. No ambiguous icons without text labels.</p>
+          </div>
+          <div class="rounded-2xl bg-gradient-to-br from-[#EFF6FF] to-[#EDE9FE] p-5">
+            <span class="text-2xl block mb-3">📐</span>
+            <h3 class="font-semibold text-neutral-800 text-sm mb-2">Consistent spacing</h3>
+            <p class="text-xs text-neutral-600 leading-relaxed">px-5 py-5 cards, space-y-6 page wrappers, gap-4 grids — applied without exception across all 9 modules.</p>
+          </div>
+          <div class="rounded-2xl bg-gradient-to-br from-[#EFF6FF] to-[#EDE9FE] p-5">
+            <span class="text-2xl block mb-3">🌙</span>
+            <h3 class="font-semibold text-neutral-800 text-sm mb-2">Dark mode by default</h3>
+            <p class="text-xs text-neutral-600 leading-relaxed">The team works long hours. All color tokens are defined for both modes — the interface never fights the user's environment.</p>
+          </div>
         </div>
       </div>
     </section>
