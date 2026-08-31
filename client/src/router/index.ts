@@ -52,12 +52,13 @@ const router = createRouter({
       ],
     },
     { path: '/login', name: 'login', component: () => import('@/pages/Login.vue') },
+    { path: '/casestudy', name: 'casestudy', component: () => import('@/pages/CaseStudy.vue') },
   ],
 })
 
 router.beforeEach((to) => {
   const auth = useAuthStore()
-  if (to.name !== 'login' && !auth.isAuthenticated) {
+  if (to.name !== 'login' && to.name !== 'casestudy' && !auth.isAuthenticated) {
     return { name: 'login' }
   }
   if (to.name === 'login' && auth.isAuthenticated) {
